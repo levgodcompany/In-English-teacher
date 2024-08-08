@@ -1,7 +1,6 @@
 import { useState } from "react";
 import style from "./NewLevel.module.css"
 import { levelCreateDto } from "../../types/Levels.types";
-import LevelsService from "../../services/Levels.service";
 import MessageError from "../../../../../components/ConfirCancelReservation/MessageError";
 
 interface NewLevelProps {
@@ -22,11 +21,17 @@ const NewLevel: React.FC<NewLevelProps> = ({onNext})=> {
     ) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     };
+
+    const handleNumberChange = (
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+      setFormData({ ...formData, [e.target.name]: Number(e.target.value) });
+    };
   
     const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
       try {
-        // await LevelsService.createLevel(formData);
+        // await LevelsService.crud().create<levelCreateDto>(formData)
         setFormData({
           description: "",
           order: 0,
@@ -40,7 +45,7 @@ const NewLevel: React.FC<NewLevelProps> = ({onNext})=> {
   
     return (
       <div className={style.container}>
-        <h1>Crear Nuevo Nivel</h1>
+        <h1 className={style.title}>Crear Nuevo Nivel</h1>
         {error && (
           <MessageError
             title="Error"
@@ -50,34 +55,37 @@ const NewLevel: React.FC<NewLevelProps> = ({onNext})=> {
         )}
         <form className={style.form} onSubmit={handleSubmit}>
           <div className={style.formGroup}>
-            <label htmlFor="title">Título *</label>
+            <label className={style.label} htmlFor="title">Título *</label>
             <input
               type="text"
               id="title"
               name="title"
+              className={style.form_input}
               value={formData.title}
               onChange={handleChange}
               required
             />
           </div>
           <div className={style.formGroup}>
-            <label htmlFor="description">Descripción *</label>
+            <label className={style.label} htmlFor="description">Descripción *</label>
             <textarea
               id="description"
               name="description"
+              className={style.form_textarea}
               value={formData.description}
               onChange={handleChange}
               required
             />
           </div>
           <div className={style.formGroup}>
-            <label htmlFor="order">Orden *</label>
+            <label className={style.label} htmlFor="order">Orden *</label>
             <input
-              type="text"
+              type="number"
               id="order"
               name="order"
+              className={style.form_input}
               value={formData.order}
-              onChange={handleChange}
+              onChange={handleNumberChange}
               required
             />
           </div>

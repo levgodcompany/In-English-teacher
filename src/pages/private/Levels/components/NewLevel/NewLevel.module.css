@@ -8,10 +8,13 @@
     margin: auto;
   }
   
-  h1 {
-    color: #450c1f;
+  .title {
+    color: var(--color-title);
+    font-size: 20px;
+    font-weight: 600;
     text-align: center;
-    margin-bottom: 20px;
+    border-bottom: 1px solid;
+    padding: 5px;
   }
   
   .form {
@@ -21,6 +24,9 @@
   
   .formGroup {
     margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
   }
   
   label {
@@ -30,28 +36,27 @@
     color: #210110;
   }
   
-  input,
-  textarea {
-    width: 100%;
+  .form_input,
+  .form_textarea {
     padding: 10px;
     border: 1px solid #c6b89e;
     border-radius: 5px;
     font-size: 1em;
   }
   
-  textarea {
+  .form_textarea {
     resize: vertical;
     height: 100px;
   }
   
-  input:focus,
-  textarea:focus {
+  .form_input:focus,
+  .form_textarea:focus {
     outline: none;
-    border-color: #9e2d49;
+    border-color: var(--secondary-color);
   }
   
   .submitButton {
-    background-color: #450c1f;
+    background-color: var(--primary-color);
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -63,6 +68,6 @@
   }
   
   .submitButton:hover {
-    background-color: #9e2d49;
+    background-color: var(--secondary-color);
   }
   

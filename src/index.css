@@ -13,6 +13,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root {
+  --primary-color: #00A8E1;
+  --secondary-color: #168eb7;
+  --color-description: #817f80;
+  --color-title: #303030;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -24,9 +31,6 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
 }
 

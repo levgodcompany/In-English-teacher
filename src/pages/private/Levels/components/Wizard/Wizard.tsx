@@ -1,8 +1,13 @@
 import { useState } from "react";
 import NewLevel from "../NewLevel/NewLevel";
 import NewSuscription from "../NewSuscription/NewSuscription";
-
-const Wizard = () => {
+import style from "./Wizard.module.css"
+interface WizardProps {
+  close: ()=> void
+}
+const Wizard: React.FC<WizardProps> = ({
+  close
+}) => {
   const [step, setStep] = useState(1);
 
   const handleNext = () => {
@@ -11,11 +16,11 @@ const Wizard = () => {
 
   const handleComplete = () => {
     // Acción al completar todos los formularios
-    console.log("Todos los formularios completados");
+    close
   };
 
   return (
-    <div>
+    <div className={style.container} >
       {step === 1 && <NewLevel onNext={handleNext} />}
       {step === 2 && <NewSuscription onComplete={handleComplete} />}
     </div>
