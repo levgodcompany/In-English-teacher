@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Unit, UnitCreate } from "../../types/Unities.types";
 import UnitiesService from "./services/Unities.service";
 import style from "./Unities.module.css";
+import MessageError from "../../../../../components/ConfirCancelReservation/MessageError";
+import MessageConfirm from "../../../../../components/Messages/MessageConfirm/MessageConfirm";
 
 interface UnitiesProps {
   idLevel: number;
@@ -10,6 +12,7 @@ interface UnitiesProps {
 
 const Unities: React.FC<UnitiesProps> = ({ idLevel, titleLevel }) => {
   const [unities, setUnities] = useState<Unit[]>([]);
+  const [error, setError] = useState<string | null>(null);
   const [currentUnit, setCurrentUnit] = useState<Unit>({
     id: 0,
     idLevel,
@@ -19,10 +22,11 @@ const Unities: React.FC<UnitiesProps> = ({ idLevel, titleLevel }) => {
   });
   const [isEdit, setIsEdit] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
 
   useEffect(() => {
     fetchUnities();
-  }, []);
+  }, [idLevel]);
 
   const fetchUnities = async () => {
     try {
@@ -45,6 +49,7 @@ const Unities: React.FC<UnitiesProps> = ({ idLevel, titleLevel }) => {
       fetchUnities(); // Refresca la lista de unidades
     } catch (error) {
       console.error("Error creating unit:", error);
+      setError(`${error}`);
     }
   };
 
@@ -58,8 +63,40 @@ const Unities: React.FC<UnitiesProps> = ({ idLevel, titleLevel }) => {
       fetchUnities(); // Refresca la lista de unidades
     } catch (error) {
       console.error("Error updating unit:", error);
+      setError(`${error}`);
     }
   };
+
+  const handleDelete = async () => {
+    try {
+      const app = UnitiesService.crud();
+      app.setUrl("");
+      await app.delete(currentUnit.id);
+      setIsDelete(false);
+      setIsCreate(false);
+      setIsEdit(false);
+      fetchUnities(); // Refresca la lista de unidades
+    } catch (error) {
+      console.error("Error updating unit:", error);
+      setError(`${error}`);
+    }
+  };
+
+  const onDelete = (unit: Unit) => {
+    setCurrentUnit(unit);
+    setIsDelete(true);
+  };
+
+  const cancelDelete = ()=> {
+    setIsDelete(false);
+    setCurrentUnit({
+      id: 0,
+      idLevel,
+      title: "",
+      description: "",
+      order: 0,
+    })
+  }
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -138,6 +175,21 @@ const Unities: React.FC<UnitiesProps> = ({ idLevel, titleLevel }) => {
 
   return (
     <div className={style.container}>
+      {error && (
+        <MessageError
+          title="Error"
+          message={error}
+          cancel={() => setError(null)}
+        />
+      )}
+      {isDelete && (
+        <MessageConfirm
+          title={`Eliminar Unidad`}
+          message={`Estas por eliminar la unidad "${currentUnit.title}"`}
+          accept={handleDelete}
+          cancel={cancelDelete}
+        />
+      )}
       <div>
         <p>Unidades del Nivel "{titleLevel}"</p>
         {unities.length > 0 ? (
@@ -162,7 +214,12 @@ const Unities: React.FC<UnitiesProps> = ({ idLevel, titleLevel }) => {
                       <button onClick={() => handleEditClick(unit)}>
                         Editar
                       </button>
-                      <button>Eliminar</button>
+                      <button onClick={() => onDelete(unit)}>
+                        Eliminar
+                      </button>
+                      <button>
+                        Cursos
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -175,7 +232,7 @@ const Unities: React.FC<UnitiesProps> = ({ idLevel, titleLevel }) => {
       <div>
         <button onClick={handleCreateClick}>Crear unidad</button>
       </div>
-      {isEdit || isCreate ? renderForm() : null}
+      {((isEdit || isCreate) && !isDelete) ? renderForm() : null}
     </div>
   );
 };

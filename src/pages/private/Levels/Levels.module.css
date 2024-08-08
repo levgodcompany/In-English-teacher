@@ -1,82 +1,56 @@
+/* Contenedor principal */
 .container {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100vh;
-  background-color: #f5f5f5;
-  font-family: "Arial", sans-serif;
-}
-
-h1 {
-  color: #00a8e1;
-  margin-left: 20px;
-}
-
-.container_levles {
-  flex: 1;
-  overflow-y: auto;
-  display: flex;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
   align-items: center;
-}
-
-.container_level {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
-.container_level_info {
-  margin-bottom: 10px;
+/* Estilo de la tabla */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
 }
 
-.title {
-  font-size: 1.5em;
+.thead th {
+  background-color: #9e2d49;
+  color: #feffd5;
+  text-align: left;
+  padding: 10px;
   font-weight: bold;
-  color: var(--primary-color);
 }
 
-.description {
-  font-size: 13px;
-  color: var(--color-description);
-  margin-top: 5px;
+.tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #c6b89e;
 }
 
-.order {
-  font-size: 0.9em;
-  color: var(--color-description);
-  margin-top: 5px;
+.tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-.container_level_button {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  gap: 10px;
-}
-
+/* Botones dentro de la tabla */
 .button {
-  background-color: var(--primary-color);
-  color: #fff;
+  background-color: #450c1f;
+  color: #feffd5;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 8px 12px;
+  margin: 0 5px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s;
-  width: 90px;
+  transition: background-color 0.3s ease;
 }
 
 .button:hover {
-  background-color: var(--secondary-color);
+  background-color: #9e2d49;
+}
+
+/* Contenedor para niveles */
+.container_levels {
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px 0;
 }
 
 .container_new_level {
@@ -86,4 +60,33 @@ h1 {
   right: 0;
   bottom: 0;
   background-color: #6e6c6c7a;
+}
+
+/* Contenedor para unidades */
+.container_unities {
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* Títulos y descripción */
+.title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.description {
+  color: #210110;
+  margin-top: 5px;
+}
+
+.order {
+  color: #d3c4a5;
+  font-size: 16px;
+}
+
+/* Mensaje de error */
+.error {
+  color: red;
+  margin-top: 20px;
+  text-align: center;
 }
