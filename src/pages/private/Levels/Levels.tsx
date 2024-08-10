@@ -9,10 +9,16 @@ import { useNavigate } from "react-router-dom";
 import { PrivateRoutes } from "../../../routes/routes";
 import Navigation from "../../../components/Navigation/Navigation";
 import { useDispatch } from "react-redux";
-import { addPage, clearNavigation, updatePage } from "../../../redux/slices/Navigations.slice";
+import {
+  addPage,
+  clearNavigation,
+  updatePage,
+} from "../../../redux/slices/Navigations.slice";
+import Exam from "./components/Exam/Exam";
 
 const Levels = () => {
   const [levels, setLevels] = useState<levelDto[]>([]);
+  const [levelSelect, setLevelSelect] = useState<levelDto | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [newLevel, setNewLevel] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -20,9 +26,7 @@ const Levels = () => {
 
   useEffect(() => {
     fetchLevels();
-    dispatch(
-      clearNavigation()
-    )
+    dispatch(clearNavigation());
     dispatch(
       addPage({
         title: `Niveles`, // Título de la página
@@ -50,7 +54,7 @@ const Levels = () => {
     dispatch(
       updatePage({
         prevTitle: `Niveles`,
-        newTitle: `Nivel: ${level.title}`
+        newTitle: `Nivel: ${level.title}`,
       })
     );
     dispatch(
@@ -65,9 +69,8 @@ const Levels = () => {
 
   return (
     <div className={style.container}>
-      <div className={style.container_nav} >
-          <Navigation />
-
+      <div className={style.container_nav}>
+        <Navigation />
       </div>
       <Sidebar />
 
@@ -96,7 +99,7 @@ const Levels = () => {
               {levels
                 .sort((a, b) => a.order - b.order)
                 .map((level) => (
-                  <tr key={level.id}>
+                  <tr key={level.id} onClick={()=> setLevelSelect(level)}>
                     <td>{level.title}</td>
                     <td>{level.description}</td>
                     <td>{level.order}</td>
@@ -129,6 +132,8 @@ const Levels = () => {
           <Wizard close={handleOnClickNewLevel} />
         </div>
       )}
+      <p>Ver los examenes</p>
+      <Exam idLevel={levelSelect ? levelSelect.id : 0} />
     </div>
   );
 };

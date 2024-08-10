@@ -76,8 +76,8 @@ const NewSuscription: React.FC<NewSubscriptionProps> = ({ onComplete }) => {
       );
 
       if(selectNew == 1) {
-        onComplete(); // Finaliza el proceso
       }
+      onComplete(); // Finaliza el proceso
       setSelectNew(0)
     } catch (error) {
       setError(`${error}`);

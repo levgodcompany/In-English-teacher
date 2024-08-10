@@ -2,6 +2,7 @@ import { useState } from "react";
 import style from "./NewLevel.module.css"
 import { levelCreateDto } from "../../types/Levels.types";
 import MessageError from "../../../../../components/ConfirCancelReservation/MessageError";
+import LevelsService from "../../services/Levels.service";
 
 interface NewLevelProps {
   onNext: () => void;
@@ -32,7 +33,7 @@ const NewLevel: React.FC<NewLevelProps> = ({onNext, close})=> {
     const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
       try {
-        // await LevelsService.crud().create<levelCreateDto>(formData)
+        await LevelsService.crud().create<levelCreateDto>(formData)
         setFormData({
           description: "",
           order: 0,

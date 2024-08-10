@@ -72,7 +72,6 @@
     overflow: hidden; /* Oculta el texto que desborda */
     text-overflow: ellipsis; /* Muestra los "..." cuando el texto es muy largo */
     max-height: 20px;
-    overflow: auto;
   }
   
   button {

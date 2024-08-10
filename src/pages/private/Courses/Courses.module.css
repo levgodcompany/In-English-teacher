@@ -1,90 +1,91 @@
 /* unities.module.css */
 
 .container {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .thead {
-    background-color: #c6b89e;
-  }
-  
-  .thead th {
-    padding: 10px;
-    font-size: 1rem;
-    color: #450c1f;
-    text-align: left;
-  }
-  
-  .tbody tr:nth-child(even) {
-    background-color: #feffd5;
-  }
-  
-  .tbody td {
-    padding: 10px;
-    font-size: 1rem;
-    color: #210110;
-    border: 1px solid #d3c4a5;
-  }
-  
-  .container_new {
-    margin: auto;
-    margin-top: 20px;
-    max-width: 330px;
-  }
-  
-  .container_new_title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #450c1f;
-    margin-bottom: 10px;
-  }
-  
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .formGroup {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #450c1f;
-  }
-  
-  .form_input {
-    padding: 8px;
-    font-size: 1rem;
-    border: 1px solid #d3c4a5;
-    border-radius: 4px;
-  }
-  
-  .form_button {
-    padding: 10px;
-    background-color: #450c1f;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .form_button:hover {
-    background-color: #9e2d49;
-  }
-  
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.thead {
+  background-color: #c6b89e;
+}
+
+.thead th {
+  padding: 10px;
+  font-size: 1rem;
+  color: #450c1f;
+  text-align: left;
+}
+
+.tbody tr:nth-child(even) {
+  background-color: #feffd5;
+}
+
+.tbody td {
+  padding: 10px;
+  max-width: 150px; /* Limita el ancho máximo a 50px */
+  white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+  overflow: hidden; /* Oculta el texto que desborda */
+  text-overflow: ellipsis; /* Muestra los "..." cuando el texto es muy largo */
+  max-height: 20px;
+}
+
+.container_new {
+  margin: auto;
+  margin-top: 20px;
+  max-width: 330px;
+}
+
+.container_new_title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #450c1f;
+  margin-bottom: 10px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #450c1f;
+}
+
+.form_input {
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #d3c4a5;
+  border-radius: 4px;
+}
+
+.form_button {
+  padding: 10px;
+  background-color: #450c1f;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form_button:hover {
+  background-color: #9e2d49;
+}

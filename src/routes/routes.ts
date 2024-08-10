@@ -27,5 +27,6 @@ export const PrivateRoutesHttp = {
   PAYMENTMETHOD: "payment-methods",
   STUDENT_SUSCRIPTION: "student-suscription",
   SUSCRIPTION: "suscription",
+  EXAMS_LEVELS: "level-exams"
 
 };

@@ -30,9 +30,11 @@
 
 .tbody td {
   padding: 10px;
-  font-size: 1rem;
-  color: #210110;
-  border: 1px solid #d3c4a5;
+  max-width: 150px; /* Limita el ancho máximo a 50px */
+  white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+  overflow: hidden; /* Oculta el texto que desborda */
+  text-overflow: ellipsis; /* Muestra los "..." cuando el texto es muy largo */
+  max-height: 20px;
 }
 
 .container_new {

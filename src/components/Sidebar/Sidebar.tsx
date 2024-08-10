@@ -17,17 +17,17 @@ const Sidebar = () => {
   const listRouter: Routes[] = [
     {
       route: PrivateRoutes.DASHBOARD,
-      title: "Dashboard"
+      title: "Dashboard",
     },
     {
       route: PrivateRoutes.LEVELS,
-      title: "Niveles"
+      title: "Niveles",
     },
     {
       route: PrivateRoutes.STUDENTS,
-      title: "Estudiantes"
-    }
-  ]
+      title: "Estudiantes",
+    },
+  ];
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -35,22 +35,26 @@ const Sidebar = () => {
 
   const redirect = (url: string) => {
     navigate(`/${PrivateRoutes.PRIVATE}/${url}`, { replace: true });
-  }
+  };
 
   const linsk = () => {
-
-    return <>
-    {
-      listRouter.map((r, i)=> (<li key={i} onClick={() => redirect(r.route)} className={SidebarStyle.li_container}>
-      <span>{r.title}</span>
-    </li>) )
-    }
-    </>
-  }
+    return (
+      <>
+        {listRouter.map((r, i) => (
+          <li
+            key={i}
+            onClick={() => redirect(r.route)}
+            className={SidebarStyle.li_container}
+          >
+            <span>{r.title}</span>
+          </li>
+        ))}
+      </>
+    );
+  };
 
   return (
     <>
-
       <div>
         <div>
           {!isSidebarOpen ? (
@@ -80,11 +84,7 @@ const Sidebar = () => {
               </div>
 
               <div className={SidebarStyle.Container_list}>
-                <nav className={SidebarStyle.nav_container}>
-                  {
-                    linsk()
-                  }
-                </nav>
+                <nav className={SidebarStyle.nav_container}>{linsk()}</nav>
               </div>
             </div>
           ) : (
