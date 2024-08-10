@@ -1,0 +1,45 @@
+/* ModuleContent.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .content {
+    flex: 1;
+  }
+  
+  .sidebar {
+    flex: 1;
+    max-width: 300px;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar li {
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  .sidebar li:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsive Design */
+  @media (min-width: 768px) {
+    .container {
+      flex-direction: row;
+    }
+  
+    .content {
+      flex: 3;
+    }
+  
+    .sidebar {
+      flex: 1;
+    }
+  }
+  

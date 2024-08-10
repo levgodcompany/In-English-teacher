@@ -1,0 +1,50 @@
+/* Contenedor general del video */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 350px;
+}
+
+/* Contenedor del video para mantener la relación de aspecto */
+.video_container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  padding-top: 56.25%; /* Relación de aspecto 16:9 */
+}
+
+/* Estilo para el iframe */
+.container_video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Estilo del título del video */
+.video_title {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  position: absolute;
+}
+
+.title {
+  font-size: 16px;
+  color: #333;
+  padding: 0;
+  margin: 0;
+  font-weight: 700;
+}
+
+.video_info {
+  margin-top: 35px;
+  position: absolute;
+  width: 100%;
+  padding: 0 15px;
+  box-sizing: border-box;
+  overflow: auto;
+}

@@ -6,6 +6,10 @@
   padding: 20px;
 }
 
+.container_nav {
+  width: 100%;
+}
+
 /* Estilo de la tabla */
 .table {
   width: 100%;

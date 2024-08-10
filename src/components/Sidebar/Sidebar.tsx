@@ -24,18 +24,6 @@ const Sidebar = () => {
       title: "Niveles"
     },
     {
-      route: PrivateRoutes.UNITIES,
-      title: "Unidades"
-    },
-    {
-      route: PrivateRoutes.COURSES,
-      title: "Cursos"
-    },
-    {
-      route: PrivateRoutes.MODULES,
-      title: "Modulos"
-    },
-    {
       route: PrivateRoutes.STUDENTS,
       title: "Estudiantes"
     }
@@ -53,7 +41,7 @@ const Sidebar = () => {
 
     return <>
     {
-      listRouter.map(r=> (<li onClick={() => redirect(r.route)} className={SidebarStyle.li_container}>
+      listRouter.map((r, i)=> (<li key={i} onClick={() => redirect(r.route)} className={SidebarStyle.li_container}>
       <span>{r.title}</span>
     </li>) )
     }

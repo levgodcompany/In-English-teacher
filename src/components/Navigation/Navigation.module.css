@@ -1,0 +1,45 @@
+/* Navigation.module.css */
+
+.contianer_navegation {
+  /* Contenedor principal con margen y padding */
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #ffffff; /* Fondo ligeramente gris */
+  border-radius: 5px; /* Esquinas redondeadas */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.container_nav {
+  /* Flexbox para alinear los elementos */
+  display: flex;
+  align-items: center;
+  font-size: 14px; /* Tamaño de fuente pequeño */
+  gap: 5px;
+}
+
+.history {
+  display: flex;
+  align-items: center;
+  max-width: 150px; /* Limita el ancho máximo a 50px */
+  white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+  overflow: hidden; /* Oculta el texto que desborda */
+  text-overflow: ellipsis; /* Muestra los "..." cuando el texto es muy largo */
+  gap: 5px;
+}
+
+.history_title:hover {
+  /* Cambiar color al hacer hover */
+  color: #007bff; /* Color principal para resaltar */
+}
+
+.history_title {
+  /* Eliminar subrayado en los títulos */
+  text-decoration: none;
+  margin: 0 5px; /* Espacio entre el separador y el título */
+}
+
+.history > p {
+  /* Estilo para el texto del historial */
+  margin: 0; /* Sin margen */
+  padding: 0; /* Sin padding */
+}

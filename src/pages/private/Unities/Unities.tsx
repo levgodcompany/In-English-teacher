@@ -1,37 +1,68 @@
 import { useEffect, useState } from "react";
-import { Unit, UnitCreate } from "../../types/Unities.types";
 import UnitiesService from "./services/Unities.service";
 import style from "./Unities.module.css";
-import MessageError from "../../../../../components/ConfirCancelReservation/MessageError";
-import MessageConfirm from "../../../../../components/Messages/MessageConfirm/MessageConfirm";
+import { Unit, UnitCreate } from "./types/Unities.types";
+import MessageError from "../../../components/ConfirCancelReservation/MessageError";
+import MessageConfirm from "../../../components/Messages/MessageConfirm/MessageConfirm";
+import { useNavigate, useParams } from "react-router-dom";
+import { PrivateRoutes } from "../../../routes/routes";
+import { useDispatch } from "react-redux";
+import { addPage, updatePage, updatePageAll } from "../../../redux/slices/Navigations.slice";
+import Navigation from "../../../components/Navigation/Navigation";
 
-interface UnitiesProps {
-  idLevel: number;
-  titleLevel: string;
-}
-
-const Unities: React.FC<UnitiesProps> = ({ idLevel, titleLevel }) => {
+const Unities = () => {
   const [unities, setUnities] = useState<Unit[]>([]);
+  const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
+  const { idLevel, titleLevel } = useParams<{
+    idLevel: string;
+    titleLevel: string;
+  }>();
+  const [param, setParam] = useState<{ idLevel: number; titleLevel: string }>({
+    idLevel: 0,
+    titleLevel: "",
+  });
   const [currentUnit, setCurrentUnit] = useState<Unit>({
     id: 0,
-    idLevel,
+    idLevel: 0,
     title: "",
     description: "",
     order: 0,
   });
+
   const [isEdit, setIsEdit] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchUnities();
+    setParam((prev) => {
+      if (idLevel) {
+        prev.idLevel = Number(idLevel);
+      }
+      if (titleLevel) {
+        prev.titleLevel = titleLevel;
+      }
+
+      return prev;
+    });
   }, [idLevel]);
+
+  useEffect(()=>{
+    dispatch(
+      updatePageAll({
+        page: {},
+        title: `Unidades`,
+        completTitle: ""
+      })
+    )
+  }, [])
 
   const fetchUnities = async () => {
     try {
       const app = UnitiesService.crud();
-      app.setUrl(`level/${idLevel}`);
+      app.setUrl(`/level/${idLevel}`);
       const res = await app.findAll();
       setUnities(res);
     } catch (error) {
@@ -43,8 +74,19 @@ const Unities: React.FC<UnitiesProps> = ({ idLevel, titleLevel }) => {
     e.preventDefault();
     try {
       const app = UnitiesService.crud();
-      await app.create<UnitCreate>({ ...currentUnit, idLevel });
-      setCurrentUnit({ id: 0, idLevel, title: "", description: "", order: 0 });
+      await app.create<UnitCreate>({
+        idLevel: param.idLevel,
+        description: currentUnit.description,
+        order: currentUnit.order,
+        title: currentUnit.title,
+      });
+      setCurrentUnit({
+        id: 0,
+        idLevel: param.idLevel,
+        title: "",
+        description: "",
+        order: 0,
+      });
       setIsCreate(false);
       fetchUnities(); // Refresca la lista de unidades
     } catch (error) {
@@ -58,7 +100,13 @@ const Unities: React.FC<UnitiesProps> = ({ idLevel, titleLevel }) => {
     try {
       const app = UnitiesService.crud();
       await app.update(currentUnit.id, currentUnit);
-      setCurrentUnit({ id: 0, idLevel, title: "", description: "", order: 0 });
+      setCurrentUnit({
+        id: 0,
+        idLevel: param.idLevel,
+        title: "",
+        description: "",
+        order: 0,
+      });
       setIsEdit(false);
       fetchUnities(); // Refresca la lista de unidades
     } catch (error) {
@@ -87,16 +135,16 @@ const Unities: React.FC<UnitiesProps> = ({ idLevel, titleLevel }) => {
     setIsDelete(true);
   };
 
-  const cancelDelete = ()=> {
+  const cancelDelete = () => {
     setIsDelete(false);
     setCurrentUnit({
       id: 0,
-      idLevel,
+      idLevel: param.idLevel,
       title: "",
       description: "",
       order: 0,
-    })
-  }
+    });
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -168,13 +216,38 @@ const Unities: React.FC<UnitiesProps> = ({ idLevel, titleLevel }) => {
   };
 
   const handleCreateClick = () => {
-    setCurrentUnit({ id: 0, idLevel, title: "", description: "", order: 0 });
+    setCurrentUnit({
+      id: 0,
+      idLevel: param.idLevel,
+      title: "",
+      description: "",
+      order: 0,
+    });
     setIsCreate(true);
     setIsEdit(false);
   };
 
+  const next = (unit: Unit) => {
+    const url = `/${PrivateRoutes.PRIVATE}/${PrivateRoutes.COURSES}/${unit.id}/${unit.title}`;
+    dispatch(
+      updatePage({
+        prevTitle: `Unidades`,
+        newTitle: `Unidad: ${unit.title}`
+      })
+    );
+    dispatch(
+      addPage({
+        title: `Cursos`, // Título de la página
+        description: "", // Descripción de la página
+        url,
+      })
+    );
+    navigate(url, { replace: true });
+  };
+
   return (
     <div className={style.container}>
+      <Navigation />
       {error && (
         <MessageError
           title="Error"
@@ -214,12 +287,8 @@ const Unities: React.FC<UnitiesProps> = ({ idLevel, titleLevel }) => {
                       <button onClick={() => handleEditClick(unit)}>
                         Editar
                       </button>
-                      <button onClick={() => onDelete(unit)}>
-                        Eliminar
-                      </button>
-                      <button>
-                        Cursos
-                      </button>
+                      <button onClick={() => onDelete(unit)}>Eliminar</button>
+                      <button onClick={() => next(unit)}>Cursos</button>
                     </td>
                   </tr>
                 ))}
@@ -232,7 +301,7 @@ const Unities: React.FC<UnitiesProps> = ({ idLevel, titleLevel }) => {
       <div>
         <button onClick={handleCreateClick}>Crear unidad</button>
       </div>
-      {((isEdit || isCreate) && !isDelete) ? renderForm() : null}
+      {(isEdit || isCreate) && !isDelete ? renderForm() : null}
     </div>
   );
 };

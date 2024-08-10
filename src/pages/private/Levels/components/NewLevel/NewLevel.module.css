@@ -71,3 +71,7 @@
     background-color: var(--secondary-color);
   }
   
+  .container_buttons {
+    display: flex;
+    justify-content: space-between;
+  }

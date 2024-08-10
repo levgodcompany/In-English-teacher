@@ -21,7 +21,7 @@ const Wizard: React.FC<WizardProps> = ({
 
   return (
     <div className={style.container} >
-      {step === 1 && <NewLevel onNext={handleNext} />}
+      {step === 1 && <NewLevel onNext={handleNext} close={close} />}
       {step === 2 && <NewSuscription onComplete={handleComplete} />}
     </div>
   );

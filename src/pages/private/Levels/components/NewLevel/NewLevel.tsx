@@ -5,9 +5,10 @@ import MessageError from "../../../../../components/ConfirCancelReservation/Mess
 
 interface NewLevelProps {
   onNext: () => void;
+  close: ()=> void
 }
 
-const NewLevel: React.FC<NewLevelProps> = ({onNext})=> {
+const NewLevel: React.FC<NewLevelProps> = ({onNext, close})=> {
     const [formData, setFormData] = useState<levelCreateDto>({
       description: "",
       order: 0,
@@ -89,7 +90,10 @@ const NewLevel: React.FC<NewLevelProps> = ({onNext})=> {
               required
             />
           </div>
-          <button type="submit" className={style.submitButton}>Crear</button>
+          <div className={style.container_buttons}>
+            <button onClick={()=> close()} className={style.submitButton}>Cerrar</button>
+            <button type="submit" className={style.submitButton}>Crear</button>
+          </div>
         </form>
       </div>
     );

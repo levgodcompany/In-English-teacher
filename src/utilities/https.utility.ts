@@ -2,7 +2,7 @@ import { axiosInstance } from "../services/axiosConfig.service";
 
 export interface MetodhHttp<T, D> {
     findAll<R = T[]>(): Promise<R>;
-    findOne<R = T>(id: D): Promise<R | null>;
+    findOne<R = T, W = D>(id: W | null): Promise<R | null>;
     create<Req = T, Res = T>(data: Req): Promise<Res>;
     update<Req = T, Res = T>(id: D, data: Partial<Req>): Promise<Res>;
     delete(id: D): Promise<void>;
@@ -15,9 +15,9 @@ class Https {
     this.baseUrl = baseUrl;
   }
 
-  async httpGet<T>(url: string): Promise<T> {
+  async httpGet<T>(url: string | null): Promise<T> {
     try {
-      const res = await axiosInstance.get<T>(`${this.baseUrl}/${url}`);
+      const res = await axiosInstance.get<T>(`${this.baseUrl}${url}`);
       return res.data;
     } catch (error) {
       this.handleError(error);
@@ -81,8 +81,8 @@ export class AppServices<T, D> extends Https implements MetodhHttp<T, D> {
     return this.httpGet<R>(this.url);
   }
 
-  async findOne<R = T>(id: D): Promise<R | null> {
-    return this.httpGet<R>(`${this.url}/${id}`);
+  async findOne<R = T, W = D>(id: W | null): Promise<R | null> {
+    return this.httpGet<R>(`${this.url}${id}`);
   }
 
   async create<Req = T, Res = T>(data: Req): Promise<Res> {
