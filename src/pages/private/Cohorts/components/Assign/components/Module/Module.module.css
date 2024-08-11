@@ -1,0 +1,42 @@
+.container_module {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #c6b89e;
+  border-radius: 8px;
+}
+
+.cohortForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formLabel {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.selectInput {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #9e2d49;
+}
+
+button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #9e2d49;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #450c1f;
+}

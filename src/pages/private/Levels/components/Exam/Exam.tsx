@@ -1,41 +1,24 @@
 import { useEffect, useState } from "react";
-import {
-  ExamLevelCreate,
-  ExamWithDetails,
-} from "../../../types/ExamsLevels.types";
+import { ExamWithDetails } from "../../../types/ExamsLevels.types";
 import ExamService from "../../services/Exam.service";
 import styles from "./Exam.module.css";
+import NewExam from "./components/NewExam/NewExam";
+
 interface ExamPorps {
   idLevel: number;
 }
 const Exam: React.FC<ExamPorps> = ({ idLevel }) => {
   const [exams, setExams] = useState<ExamWithDetails[]>([]);
   const [isCreate, setIsCreate] = useState<boolean>(false);
-  const [newExam, setNewExam] = useState<ExamLevelCreate>({
-    idLevel: 0,
-    idTeacher: 1,
-    title: "",
-    description: "",
-    archive: "",
-    passingScore: 0,
-    NumberAttempts: 0,
-  });
 
   useEffect(() => {
     fetchExams();
+    setIsCreate(false);
     if (idLevel > 0) {
       setExams((prev) => {
-        prev = prev.filter((e) => e.idLevel == idLevel);
-        return prev;
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-
-    if (idLevel > 0) {
-      setExams((prev) => {
-        prev = prev.filter((e) => e.idLevel == idLevel);
+        if (prev && prev.length > 0) {
+          prev = prev.filter((e) => e.idLevel == idLevel);
+        }
         return prev;
       });
     }
@@ -43,39 +26,12 @@ const Exam: React.FC<ExamPorps> = ({ idLevel }) => {
 
   const fetchExams = async () => {
     try {
-      const result = await ExamService.crud().findAll<ExamWithDetails[]>();
+      const service = ExamService.crud();
+      service.setUrl(`/level/${idLevel}`);
+      const result = await service.findAll<ExamWithDetails[]>();
       setExams(result);
     } catch (error) {
       console.error("Error fetching exams:", error);
-    }
-  };
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setNewExam({
-      ...newExam,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      await ExamService.crud().create(newExam);
-      fetchExams(); // Actualiza la lista de exámenes después de crear uno nuevo
-      setNewExam({
-        idLevel: 0,
-        idTeacher: 0,
-        title: "",
-        description: "",
-        archive: "",
-        passingScore: 0,
-        NumberAttempts: 1,
-      });
-    } catch (error) {
-      console.error("Error creating exam:", error);
     }
   };
 
@@ -119,82 +75,7 @@ const Exam: React.FC<ExamPorps> = ({ idLevel }) => {
 
       <p>Crear nuevo examen</p>
       <button onClick={() => setIsCreate(!isCreate)}>Crear nuevo examen</button>
-      {isCreate ? (
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div>
-            <label>Nivel:</label>
-            <input
-              type="number"
-              name="idLevel"
-              value={newExam.idLevel}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Profesor:</label>
-            <input
-              type="number"
-              name="idTeacher"
-              value={newExam.idTeacher}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Titulo:</label>
-            <input
-              type="text"
-              name="title"
-              value={newExam.title}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Descripcion:</label>
-            <textarea
-              name="description"
-              value={newExam.description}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Archivo URL:</label>
-            <input
-              type="text"
-              name="archive"
-              value={newExam.archive}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Puntuación de aprobación:</label>
-            <input
-              type="number"
-              name="passingScore"
-              value={newExam.passingScore}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Número de intentos:</label>
-            <input
-              type="number"
-              name="NumberAttempts"
-              value={newExam.NumberAttempts}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <button type="submit">Crear</button>
-        </form>
-      ) : (
-        <></>
-      )}
+      {isCreate ? <NewExam fetchExams={fetchExams} /> : <></>}
     </div>
   );
 };

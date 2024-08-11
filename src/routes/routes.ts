@@ -11,7 +11,8 @@ export const PrivateRoutes = {
   UNITIES: "unities",
   COURSES: "courses",
   MODULES: "modules",
-  STUDENTS: "students"
+  STUDENTS: "students",
+  COHORTS: "cohorts"
 };
 
 export const PrivateRoutesHttp = {
@@ -27,6 +28,7 @@ export const PrivateRoutesHttp = {
   PAYMENTMETHOD: "payment-methods",
   STUDENT_SUSCRIPTION: "student-suscription",
   SUSCRIPTION: "suscription",
-  EXAMS_LEVELS: "level-exams"
+  EXAMS_LEVELS: "level-exams",
+  COHORTS: "cohorts"
 
 };

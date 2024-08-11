@@ -1,0 +1,76 @@
+/* Contenedor principal */
+.container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Estilo del título */
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Contenedor para la tabla */
+.container_table {
+  margin-bottom: 20px;
+  max-width: 100%;
+  max-height: 400px;
+  overflow: auto;
+}
+
+/* Tabla de cohorts */
+.cohortsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table_header,
+.table_cell {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table_header {
+  background-color: #f4f4f4;
+  color: #333;
+  font-weight: bold;
+}
+
+.table_row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table_row:hover {
+  background-color: #f1f1f1;
+}
+
+/* Contenedor para los botones */
+.container_buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+/* Botón para crear cohortes */
+.button_create {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button_create:hover {
+  background-color: #0056b3;
+}
+
+/* Contenedor para el formulario de creación de cohortes */
+.container_create {
+  margin-top: 20px;
+}

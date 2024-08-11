@@ -10,3 +10,8 @@ export type levelCreateDto = {
     description: string;
     order: number
 }
+
+export type LevelInfoBasic = {
+    id: number;
+    title: string;
+}

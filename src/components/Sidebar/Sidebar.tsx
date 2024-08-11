@@ -27,6 +27,10 @@ const Sidebar = () => {
       route: PrivateRoutes.STUDENTS,
       title: "Estudiantes",
     },
+    {
+      route: PrivateRoutes.COHORTS,
+      title: "Cohortes",
+    },
   ];
 
   const toggleSidebar = () => {

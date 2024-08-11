@@ -4,7 +4,7 @@ export interface MetodhHttp<T, D> {
     findAll<R = T[]>(): Promise<R>;
     findOne<R = T, W = D>(id: W | null): Promise<R | null>;
     create<Req = T, Res = T>(data: Req): Promise<Res>;
-    update<Req = T, Res = T>(id: D, data: Partial<Req>): Promise<Res>;
+    update<W = D, Req = T, Res = T>(id: W | null, data: Partial<Req>): Promise<Res>;
     delete(id: D): Promise<void>;
 }
 
@@ -51,7 +51,7 @@ class Https {
 
   async httpDelete<T>(url: string): Promise<T> {
     try {
-      const res = await axiosInstance.delete<T>(`${this.baseUrl}/${url}`);
+      const res = await axiosInstance.delete<T>(`${this.baseUrl}${url}`);
       return res.data;
     } catch (error) {
       this.handleError(error);
@@ -77,6 +77,10 @@ export class AppServices<T, D> extends Https implements MetodhHttp<T, D> {
     this.url = url;
   }
 
+  getUrl() {
+    return this.url;
+  }
+
   async findAll<R = T[]>(): Promise<R> {
     return this.httpGet<R>(this.url);
   }
@@ -89,7 +93,7 @@ export class AppServices<T, D> extends Https implements MetodhHttp<T, D> {
     return this.httpPost<Res, Req>(this.url, data);
   }
 
-  async update<Req = T, Res = T>(id: D, data: Partial<Req>): Promise<Res> {
+  async update<W = D, Req = T, Res = T>(id: W, data: Partial<Req>): Promise<Res> {
     return this.httpUpdate<Res, Partial<Req>>(`${this.url}/${id}`, data);
   }
 

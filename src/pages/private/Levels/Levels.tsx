@@ -99,7 +99,7 @@ const Levels = () => {
               {levels
                 .sort((a, b) => a.order - b.order)
                 .map((level) => (
-                  <tr key={level.id} onClick={()=> setLevelSelect(level)}>
+                  <tr key={level.id} onClick={() => setLevelSelect(level)}>
                     <td>{level.title}</td>
                     <td>{level.description}</td>
                     <td>{level.order}</td>
@@ -132,8 +132,13 @@ const Levels = () => {
           <Wizard close={handleOnClickNewLevel} />
         </div>
       )}
-      <p>Ver los examenes</p>
-      <Exam idLevel={levelSelect ? levelSelect.id : 0} />
+      {levelSelect ? (
+        <>
+          <Exam idLevel={levelSelect.id} />
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
