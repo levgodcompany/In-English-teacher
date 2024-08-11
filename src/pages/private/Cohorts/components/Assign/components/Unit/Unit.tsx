@@ -14,6 +14,7 @@ const Unit: React.FC<UnitPorps> = ({ idCohort }) => {
   const [unities, setUnities] = useState<UnitInfoBasic[]>([]);
   const [cohortsUnities, setCohortsUnities] = useState<CohortAndUnit[]>([]);
   const [formData, setFormData] = useState<number>(0);
+  const [isAssigCourse, setIsAssigCouese] = useState<boolean>(false);
   useEffect(() => {
     fetchUnites();
     fetchCohortsAndUnities();
@@ -103,7 +104,8 @@ const Unit: React.FC<UnitPorps> = ({ idCohort }) => {
         </div>
       </form>
       <div>
-        {formData > 0 ? (
+        <button onClick={()=> setIsAssigCouese(!isAssigCourse)} >Asignar una Cohorte a un curso</button>
+        {isAssigCourse && formData > 0 ? (
           <>
             <p>Asignar Curso</p>
             <Course idCohort={idCohort} idUnit={formData} />

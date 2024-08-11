@@ -59,15 +59,11 @@
   padding: 10px 20px;
   font-size: 16px;
   color: white;
-  background-color: #007bff;
+  background-color: var(--primary-color);
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-}
-
-.button_create:hover {
-  background-color: #0056b3;
 }
 
 /* Contenedor para el formulario de creación de cohortes */

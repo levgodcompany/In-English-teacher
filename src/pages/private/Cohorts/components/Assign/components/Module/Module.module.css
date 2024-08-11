@@ -1,8 +1,5 @@
 .container_module {
-  margin: 20px;
-  padding: 20px;
-  border: 1px solid #c6b89e;
-  border-radius: 8px;
+  margin-top: 20px;
 }
 
 .cohortForm {
@@ -24,19 +21,52 @@
 .selectInput {
   padding: 8px;
   border-radius: 4px;
-  border: 1px solid #9e2d49;
+  border: 1px solid var(--primary-color);
 }
 
 button {
   padding: 10px;
   border: none;
   border-radius: 4px;
-  background-color: #9e2d49;
+  background-color: var(--primary-color);
   color: #fff;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #450c1f;
+
+/* Contenedor para la tabla */
+.container_table {
+  margin-bottom: 20px;
+  max-width: 100%;
+  max-height: 400px;
+  overflow: auto;
+}
+
+/* Tabla de cohorts */
+.cohortsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table_header,
+.table_cell {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table_header {
+  background-color: #f4f4f4;
+  color: #333;
+  font-weight: bold;
+}
+
+.table_row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table_row:hover {
+  background-color: #f1f1f1;
 }

@@ -15,3 +15,16 @@ export type ModuleInfoBasic = {
   title: string;
   idCourse: number;
 };
+
+export type CohortModule = {
+  idModule: number;
+  idCohort: number;
+  cohort: {
+    title: string;
+    id: number;
+  };
+  modules: {
+    id: number;
+    title: string;
+  };
+};

@@ -67,7 +67,7 @@
   .dimensions,
   .maxCapacity {
     margin: 5px 0;
-    color: #450c1f;
+    color: var(--primary-color);
     font-size: 12px;
     display: flex;
     flex-direction: row;

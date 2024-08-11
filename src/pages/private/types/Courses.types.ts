@@ -29,3 +29,16 @@ export type CourseInfoBasic = {
   title: string;
   idUnit: number;
 };
+
+export type CohortCourse = {
+  idCourse: number;
+  idCohort: number;
+  cohort: {
+    title: string;
+    id: number;
+  };
+  courses: {
+    id: number;
+    title: string;
+  };
+};

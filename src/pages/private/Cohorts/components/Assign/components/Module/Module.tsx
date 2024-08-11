@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "./Module.module.css";
 import CohortService from "../../../../services/Cohort.service";
-import { ModuleInfoBasic } from "../../../../../types/Modules.types";
+import {
+  CohortModule,
+  ModuleInfoBasic,
+} from "../../../../../types/Modules.types";
 import ModulesService from "../../../../../Modules/services/Modules.service";
 
 interface ModuleProps {
@@ -12,9 +15,11 @@ interface ModuleProps {
 const Module: React.FC<ModuleProps> = ({ idCohort, idCourse }) => {
   const [modules, setModules] = useState<ModuleInfoBasic[]>([]);
   const [formData, setFormData] = useState<number>(0);
+  const [cohortsModules, setCohortsModules] = useState<CohortModule[]>([]);
 
   useEffect(() => {
     fetchModules();
+    fetchCohortsAndCourses();
   }, [idCourse]);
 
   const fetchModules = async () => {
@@ -22,10 +27,21 @@ const Module: React.FC<ModuleProps> = ({ idCohort, idCourse }) => {
       const service = ModulesService.crud();
       service.setUrl(`/info-basic`);
       const result = await service.findAll<ModuleInfoBasic[]>();
-      const f = result.filter(c=> c.idCourse == idCourse);
+      const f = result.filter((c) => c.idCourse == idCourse);
       setModules(f);
     } catch (error) {
       console.error("Error fetching modules:", error);
+    }
+  };
+
+  const fetchCohortsAndCourses = async () => {
+    try {
+      const service = CohortService.crud();
+      service.setUrl(`/cohort-module/${idCohort}`);
+      const result = await service.findAll<CohortModule[]>();
+      setCohortsModules(result);
+    } catch (error) {
+      console.error("Error fetching levels:", error);
     }
   };
 
@@ -46,6 +62,24 @@ const Module: React.FC<ModuleProps> = ({ idCohort, idCourse }) => {
 
   return (
     <div className={styles.container_module}>
+      <div className={styles.container_table}>
+        <table className={styles.cohortsTable}>
+          <thead>
+            <tr className={styles.table_header}>
+              <th>Cohorte</th>
+              <th>Curso</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cohortsModules.map((cohort, i) => (
+              <tr key={i} className={styles.table_row}>
+                <td className={styles.table_cell}>{cohort.cohort.title}</td>
+                <td className={styles.table_cell}>{cohort.modules.title}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <form onSubmit={handleSubmit} className={styles.cohortForm}>
         <div className={styles.formGroup}>
           <label className={styles.formLabel}>Módulo:</label>

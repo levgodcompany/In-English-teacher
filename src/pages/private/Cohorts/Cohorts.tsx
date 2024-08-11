@@ -82,6 +82,10 @@ const Cohorts = () => {
     }
   };
 
+  const close = ()=> {
+    setIdCohortSelect(null)
+  }
+
   return (
     <div className={styles.container}>
       <Sidebar />
@@ -149,7 +153,7 @@ const Cohorts = () => {
         </table>
       </div>
 
-      <div>{idCohortSelect ? <Assign idCohort={idCohortSelect} /> : <></>}</div>
+      <div>{idCohortSelect ? <Assign close={close} idCohort={idCohortSelect} /> : <></>}</div>
       <div className={styles.container_create}>
         {isCreate ? (
           <CohortCreate levels={levels} fetchCohorts={fetchData} />

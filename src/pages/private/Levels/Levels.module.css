@@ -41,7 +41,7 @@
 
 /* Botones dentro de la tabla */
 .button {
-  background-color: #450c1f;
+  background-color: var(--primary-color);
   color: #feffd5;
   border: none;
   padding: 8px 12px;

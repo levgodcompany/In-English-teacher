@@ -14,7 +14,7 @@
 .error {
     background-color: #9e2d49;
     color: #feffd5;
-    border: 1px solid #450c1f;
+    border: 1px solid var(--primary-color);
 }
 
 .info {
