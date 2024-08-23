@@ -32,7 +32,7 @@ const NewSuscription: React.FC<NewSubscriptionProps> = ({ onComplete }) => {
   const [benefits, setBenefits] = useState<Benefit[]>([]);
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
 
-  const [selectNew, setSelectNew] = useState<number>(0)
+  const [selectNew, setSelectNew] = useState<number>(0);
 
   useEffect(() => {
     const fetchLevels = async () => {
@@ -64,21 +64,21 @@ const NewSuscription: React.FC<NewSubscriptionProps> = ({ onComplete }) => {
 
       service.setUrl(`benefits`);
 
-      await service.update<Number[], void>(
+      await service.update<number, number[]>(
         id,
         benefits.map((b) => b.id)
       );
 
       service.setUrl(`payment-methods`);
-      await service.update<Number[], void>(
+      await service.update<number, number[]>(
         id,
         paymentMethods.map((b) => b.id)
       );
 
-      if(selectNew == 1) {
+      if (selectNew == 1) {
       }
       onComplete(); // Finaliza el proceso
-      setSelectNew(0)
+      setSelectNew(0);
     } catch (error) {
       setError(`${error}`);
     }
@@ -188,11 +188,19 @@ const NewSuscription: React.FC<NewSubscriptionProps> = ({ onComplete }) => {
           />
         </div>
         <div className={style.container_button}>
-          <button onClick={()=> setSelectNew(1)} type="submit" className={style.submitButton}>
+          <button
+            onClick={() => setSelectNew(1)}
+            type="submit"
+            className={style.submitButton}
+          >
             Crear y Cerrar
           </button>
 
-          <button type="submit" onClick={()=> setSelectNew(0)} className={style.submitButton}>
+          <button
+            type="submit"
+            onClick={() => setSelectNew(0)}
+            className={style.submitButton}
+          >
             Crear
           </button>
         </div>

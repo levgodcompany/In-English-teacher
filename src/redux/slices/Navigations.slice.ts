@@ -75,7 +75,6 @@ const navigationSlice = createSlice({
         completTitle: string
       }>
     ) => {
-      console.log("prev map", state.pages)
       // Filtra las páginas para eliminar la página con el índice proporcionado
       state.pages = state.pages.map((page) => {
         
@@ -90,8 +89,6 @@ const navigationSlice = createSlice({
 
         return page;
       });
-
-      console.log("post map", state.pages)
       // Guarda el estado actualizado en localStorage
       localStorage.setItem("navigation", JSON.stringify(state.pages));
     },

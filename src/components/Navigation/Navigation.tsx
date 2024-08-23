@@ -7,17 +7,12 @@ import { useEffect } from "react";
 const Navigation = () => {
   const history = useAppSelector((state) => state.navigation.pages);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  useEffect(()=>{
+  useEffect(() => {}, [history]);
 
-  }, [history])
-
-  const handleOnClink = (url: string, index: number, title: string) => {
-    dispatch(
-      removePages({index})
-    )
-    console.log(url, index, title)
+  const handleOnClink = (url: string, index: number, _title: string) => {
+    dispatch(removePages({ index }));
     navigate(`${url}`, { replace: true });
   };
   return (

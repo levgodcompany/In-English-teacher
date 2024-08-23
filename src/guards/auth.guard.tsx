@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
-// import { useAppSelector } from "../redux/hooks";
 import { PrivateRoutes, PublicRoutes } from "../routes/routes";
+import { useAppSelector } from "../redux/hooks";
 
 interface Props {
   privateValidation: boolean;
@@ -12,9 +12,9 @@ const PublicValidationFragment = (
 );
 
 export const AuthGuard = ({ privateValidation }: Props) => {
-  // const userState = useAppSelector((store) => store.token);
-  const bool = true;
-  return bool ? (
+  const userState = useAppSelector((store) => store.auth);
+
+  return userState.token || undefined ? (
     privateValidation ? (
       PrivateValidationFragment
     ) : (
@@ -23,15 +23,6 @@ export const AuthGuard = ({ privateValidation }: Props) => {
   ) : (
     <Navigate replace to={PublicRoutes.LOGIN} />
   );
-  // return userState.token ? (
-  //   privateValidation ? (
-  //     PrivateValidationFragment
-  //   ) : (
-  //     PublicValidationFragment
-  //   )
-  // ) : (
-  //   <Navigate replace to={PublicRoutes.LOGIN} />
-  // );
 };
 
 export default AuthGuard;

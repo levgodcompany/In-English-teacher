@@ -7,6 +7,7 @@ import { LevelInfoBasic } from "../types/Levels.types";
 import LevelsService from "../Levels/services/Levels.service";
 import Sidebar from "../../../components/Sidebar/Sidebar";
 import Assign from "./components/Assign/Assign";
+import CohortInfo from "./components/Cohort/Cohort";
 
 interface CohortAndLevel {
   id: number;
@@ -26,6 +27,7 @@ const Cohorts = () => {
   const [isCreate, setIsCreate] = useState<boolean>(false);
   const [levels, setLevels] = useState<LevelInfoBasic[]>([]);
   const [idCohortSelect, setIdCohortSelect] = useState<number | null>(null);
+  const [idCohortSelectAssig, setIdCohortSelectAssig] = useState<number | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -82,9 +84,13 @@ const Cohorts = () => {
     }
   };
 
-  const close = ()=> {
-    setIdCohortSelect(null)
-  }
+  const close = () => {
+    setIdCohortSelect(null);
+  };
+
+  const newCohort = () => {
+    setIsCreate(!isCreate)
+  };
 
   return (
     <div className={styles.container}>
@@ -93,7 +99,7 @@ const Cohorts = () => {
       <div className={styles.container_buttons}>
         <button
           className={styles.button_create}
-          onClick={() => setIsCreate(!isCreate)}
+          onClick={newCohort}
         >
           Crear Cohorte
         </button>
@@ -115,11 +121,7 @@ const Cohorts = () => {
           </thead>
           <tbody>
             {cohortsAndLevel.map((cohort) => (
-              <tr
-                
-                key={cohort.id}
-                className={styles.table_row}
-              >
+              <tr key={cohort.id} className={styles.table_row}>
                 <td className={styles.table_cell}>{cohort.id}</td>
                 <td className={styles.table_cell}>{cohort.title}</td>
                 <td className={styles.table_cell}>{cohort.description}</td>
@@ -145,7 +147,14 @@ const Cohorts = () => {
                   <button>Actualizar</button>
                 </td>
                 <td className={styles.table_cell}>
-                  <button onClick={() => setIdCohortSelect(cohort.id)}>Asignar</button>
+                  <button onClick={() => setIdCohortSelectAssig(cohort.id)}>
+                    Asignar
+                  </button>
+                </td>
+                <td className={styles.table_cell}>
+                  <button onClick={() => setIdCohortSelect(cohort.id)}>
+                    info
+                  </button>
                 </td>
               </tr>
             ))}
@@ -153,10 +162,21 @@ const Cohorts = () => {
         </table>
       </div>
 
-      <div>{idCohortSelect ? <Assign close={close} idCohort={idCohortSelect} /> : <></>}</div>
+      <div>
+        {
+          idCohortSelectAssig ? <Assign idCohort={idCohortSelectAssig} close={close} /> : <></>
+        }
+      </div>
+      <div>
+        {idCohortSelect ? (
+          <CohortInfo idCohort={idCohortSelect} />
+        ) : (
+          <></>
+        )}
+      </div>
       <div className={styles.container_create}>
         {isCreate ? (
-          <CohortCreate levels={levels} fetchCohorts={fetchData} />
+          <CohortCreate levels={levels} close={newCohort} fetchCohorts={fetchData} />
         ) : null}
       </div>
     </div>

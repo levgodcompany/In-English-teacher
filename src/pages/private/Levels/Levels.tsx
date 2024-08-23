@@ -15,12 +15,18 @@ import {
   updatePage,
 } from "../../../redux/slices/Navigations.slice";
 import Exam from "./components/Exam/Exam";
+import imgEdit from "../../../assets/edit-3-svgrepo-com.svg";
+import imgDelete from "../../../assets/delete-2-svgrepo-com.svg";
+import imgExam from "../../../assets/i-exam-multiple-choice-svgrepo-com.svg";
+import imgUnit from "../../../assets/unit-svgrepo-com.svg";
+import EditLevel from "./components/EditLevel/EditLevel";
 
 const Levels = () => {
   const [levels, setLevels] = useState<levelDto[]>([]);
   const [levelSelect, setLevelSelect] = useState<levelDto | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [newLevel, setNewLevel] = useState<boolean>(false);
+  const [editLevel, setEditLevel] = useState<number | null>(null)
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -40,6 +46,16 @@ const Levels = () => {
     try {
       const result = await LevelsService.crud().findAll();
       setLevels(result);
+    } catch (error) {
+      setError(`${error}`);
+    }
+  };
+
+  const fetchLevelsDelete = async (id: number) => {
+    try {
+      await LevelsService.crud().delete(id);
+      await fetchLevels();
+      // setLevels(result);
     } catch (error) {
       setError(`${error}`);
     }
@@ -99,19 +115,41 @@ const Levels = () => {
               {levels
                 .sort((a, b) => a.order - b.order)
                 .map((level) => (
-                  <tr key={level.id} onClick={() => setLevelSelect(level)}>
+                  <tr key={level.id}>
                     <td>{level.title}</td>
                     <td>{level.description}</td>
                     <td>{level.order}</td>
                     <td>
-                      <button className={style.button}>Eliminar</button>
-                      <button className={style.button}>Editar</button>
-                      <button
+                      <img
+                        style={{ width: "15px" }}
+                        onClick={() => fetchLevelsDelete(level.id)}
+                        className={style.button}
+                        src={imgDelete}
+                        alt="Eliminar"
+                      />
+                      <img
+                        style={{ width: "15px" }}
+                        onClick={() => setEditLevel(level.id)}
+                        className={style.button}
+                        src={imgEdit}
+                        alt="Editar"
+                      />
+
+                      <img
+                        style={{ width: "15px" }}
+                        onClick={() => setLevelSelect(level)}
+                        className={style.button}
+                        src={imgExam}
+                        alt="Exams"
+                      />
+
+                      <img
+                        style={{ width: "15px" }}
                         onClick={() => next(level)}
                         className={style.button}
-                      >
-                        Unidades
-                      </button>
+                        src={imgUnit}
+                        alt="Unites"
+                      />
                     </td>
                   </tr>
                 ))}
@@ -139,6 +177,10 @@ const Levels = () => {
       ) : (
         <></>
       )}
+
+      {
+        editLevel ? <EditLevel idLevel={editLevel} /> : <></>
+      }
     </div>
   );
 };

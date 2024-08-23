@@ -6,10 +6,11 @@ import { LevelInfoBasic } from "../../../types/Levels.types";
 
 interface CohortCreateProps {
   fetchCohorts: () => void;
-  levels: LevelInfoBasic[]
+  levels: LevelInfoBasic[];
+  close: ()=> void;
 }
 
-const CohortCreate: React.FC<CohortCreateProps> = ({ fetchCohorts, levels }) => {
+const CohortCreate: React.FC<CohortCreateProps> = ({ fetchCohorts, levels, close }) => {
   const [formData, setFormData] = useState<CohortCreateType>({
     title: "",
     description: "",
@@ -44,6 +45,7 @@ const CohortCreate: React.FC<CohortCreateProps> = ({ fetchCohorts, levels }) => 
     e.preventDefault();
     try {
       await CohortService.crud().create(formData);
+      close()
       fetchCohorts();
     } catch (error) {
       console.error("Error creating cohort:", error);
@@ -154,6 +156,9 @@ const CohortCreate: React.FC<CohortCreateProps> = ({ fetchCohorts, levels }) => 
 
         <button type="submit" className={styles.submitButton}>
           Crear Cohorte
+        </button>
+        <button onClick={close} className={styles.submitButton}>
+          Cancelar
         </button>
       </form>
     </div>

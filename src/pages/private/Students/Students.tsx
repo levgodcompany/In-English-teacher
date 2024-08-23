@@ -33,6 +33,30 @@ const Students = () => {
             <th>Apellido</th>
             <th>Email</th>
             <th>Status ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {students.flatMap((student) =>
+            (
+              <tr key={`${student.id}`}>
+                <td>{student.id}</td>
+                <td>{student.name}</td>
+                <td>{student.lastName}</td>
+                <td>{student.email}</td>
+                <td>{student.idStatus}</td>
+              </tr>
+            )
+          )}
+        </tbody>
+      </table>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Status ID</th>
             <th>Nivel</th>
           </tr>
         </thead>

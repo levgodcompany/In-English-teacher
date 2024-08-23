@@ -1,0 +1,75 @@
+.containerLevel {
+    background-color: #feffd5;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+  }
+  
+  .levelHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .levelTitle {
+    font-size: 1.5rem;
+    color: #450c1f;
+  }
+  
+  .levelOrder {
+    font-size: 1rem;
+    color: #9e2d49;
+  }
+  
+  .levelDescription {
+    font-size: 1.1rem;
+    color: #210110;
+    line-height: 1.5;
+  }
+  
+  .loadingMessage {
+    font-size: 1.2rem;
+    color: #c6b89e;
+    text-align: center;
+  }
+  
+  .levelInput, .levelTextarea {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    font-size: 1rem;
+    border: 1px solid #c6b89e;
+    border-radius: 4px;
+  }
+  
+  .levelTextarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+  
+  .editButton, .saveButton, .cancelButton {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .editButton {
+    background-color: #9e2d49;
+    color: white;
+  }
+  
+  .saveButton {
+    background-color: #210110;
+    color: white;
+  }
+  
+  .cancelButton {
+    background-color: #c6b89e;
+    color: white;
+  }
+  

@@ -1,0 +1,103 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.levelCard {
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.levelTitle {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.levelDescription {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.levelAmount {
+  font-size: 1.2rem;
+  color: #9e2d49;
+  margin-bottom: 10px;
+}
+
+.discount {
+  font-size: 0.9rem;
+  color: #450c1f;
+  margin-left: 5px;
+}
+
+.subTitle {
+  font-size: 1.1rem;
+  color: #210110;
+  margin-bottom: 8px;
+}
+
+.list {
+  list-style-type: disc;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.listItem {
+  font-size: 0.9rem;
+  color: #444;
+  margin-bottom: 5px;
+}
+
+.loadingMessage,
+.errorMessage {
+  font-size: 1.2rem;
+  color: #9e2d49;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.textarea {
+  height: 60px;
+}
+
+.editButton,
+.saveButton,
+.cancelButton {
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.editButton {
+  background-color: #9e2d49;
+  color: #fff;
+}
+
+.saveButton {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.cancelButton {
+  background-color: #f44336;
+  color: #fff;
+}

@@ -16,3 +16,12 @@ export type SuscriptionDto = {
     numInstallments: number;
     discountPercentage: number;
 }
+
+export type SuscriptionEditDto = {
+    idLevel: number;
+    title: string;
+    description: string;
+    amount: number;
+    numInstallments: number;
+    discountPercentage: number;
+}

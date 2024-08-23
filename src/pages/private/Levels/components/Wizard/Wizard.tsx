@@ -16,7 +16,7 @@ const Wizard: React.FC<WizardProps> = ({
 
   const handleComplete = () => {
     // Acción al completar todos los formularios
-    close
+    close()
   };
 
   return (
