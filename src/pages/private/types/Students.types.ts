@@ -5,7 +5,7 @@ export type Student = {
   email: string;
   password: string;
   birthDate: Date;
-  idStatus: number;
+  status: string;
 };
 
 type Level = {
@@ -22,9 +22,10 @@ export type StudentAndLevels = {
   name: string;
   lastName: string;
   email: string;
-  password: string;
+  dni: string;
+  tel: string;
   birthDate: string; // Puede ser Date si prefieres manejarlo como un objeto Date en lugar de un string
-  idStatus: number;
+  status: string;
   levels: Level[];
 };
 

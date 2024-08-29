@@ -11,11 +11,7 @@ import MessageConfirm from "../../../components/Messages/MessageConfirm/MessageC
 import { useParams } from "react-router-dom";
 import Navigation from "../../../components/Navigation/Navigation";
 import { useDispatch } from "react-redux";
-import {
-  addPage,
-  updatePageAll,
-} from "../../../redux/slices/Navigations.slice";
-import { PrivateRoutes } from "../../../routes/routes";
+import { updatePageAll } from "../../../redux/slices/Navigations.slice";
 
 const Modules = () => {
   const [modules, setModules] = useState<Module[]>([]);
@@ -85,6 +81,10 @@ const Modules = () => {
     e.preventDefault();
     try {
       const app = ModulesService.crud();
+      currentModule.description = currentModule.description.replace(
+        /<p>\s*<br>\s*<\/p>/gi,
+        ""
+      );
       await app.create<ModuleCreate>({
         description: currentModule.description,
         fileURL: currentModule.fileURL,
@@ -114,6 +114,10 @@ const Modules = () => {
     e.preventDefault();
     try {
       const app = ModulesService.crud();
+      currentModule.description = currentModule.description.replace(
+        /<p>\s*<br>\s*<\/p>/gi,
+        ""
+      );
       await app.update(currentModule.id, currentModule);
       setCurrentModule({
         id: 0,
@@ -207,6 +211,31 @@ const Modules = () => {
             className={style.form_input}
             value={currentModule.description}
             onChange={handleChangeDescription}
+            modules={{
+              toolbar: [
+                [{ header: [1, 2, false] }],
+                ["bold", "italic", "underline", "strike"],
+                [{ list: "ordered" }, { list: "bullet" }],
+                [{ indent: "-1" }, { indent: "+1" }],
+                [{ align: [] }],
+                ["link"],
+                ["blockquote", "code-block", "formula"],
+              ],
+            }}
+            formats={[
+              "header",
+              "bold",
+              "italic",
+              "underline",
+              "strike",
+              "list",
+              "indent",
+              "align",
+              "link",
+              "blockquote",
+              "code-block",
+              "formula",
+            ]}
           />
         </div>
         <div className={style.formGroup}>
