@@ -1,48 +1,35 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./Course.module.css";
 import CohortService from "../../../../services/Cohort.service";
-import {
-  CohortCourse,
-  CourseInfoBasic,
-} from "../../../../../types/Courses.types";
+import { CourseInfoBasic } from "../../../../../types/Courses.types";
 import CoursesService from "../../../../../Courses/services/Courses.service";
-import Module from "../Module/Module";
+import { CohortCourseRelationshipDTO } from "../../types/Assign.type";
 
 interface CourseProps {
   idCohort: number;
   idUnit: number;
+  courseAssing: CohortCourseRelationshipDTO[] | undefined;
+  selectCourse: (select: number)=> void;
 }
 
-const Course: React.FC<CourseProps> = ({ idCohort, idUnit }) => {
+const Course: React.FC<CourseProps> = ({ idCohort, idUnit, courseAssing, selectCourse }) => {
   const [coursesFilter, setCoursesFilter] = useState<CourseInfoBasic[]>([]);
   const [formData, setFormData] = useState<number>(0);
-  const [cohortsCourses, setCohortsCourses] = useState<CohortCourse[]>([]);
-
-  useEffect(() => {
-    fetchCourses();
-    fetchCohortsAndCourses();
-  }, [idUnit]);
+  const [isLoad, setIsLoad] = useState<boolean>(false);
 
   const fetchCourses = async () => {
     try {
       const service = CoursesService.crud();
       service.setUrl(`/info-basic`);
       const result = await service.findAll<CourseInfoBasic[]>();
-      const f = result.filter((c) => c.idUnit == idUnit);
-      setCoursesFilter(f);
+
+      // Filtrar cursos por unidad
+      const filteredCourses = result.filter((c) => c.idUnit === idUnit);
+
+      setCoursesFilter(filteredCourses);
+      setIsLoad(false);
     } catch (error) {
       console.error("Error fetching courses:", error);
-    }
-  };
-
-  const fetchCohortsAndCourses = async () => {
-    try {
-      const service = CohortService.crud();
-      service.setUrl(`/cohort-course/${idCohort}`);
-      const result = await service.findAll<CohortCourse[]>();
-      setCohortsCourses(result);
-    } catch (error) {
-      console.error("Error fetching levels:", error);
     }
   };
 
@@ -53,65 +40,69 @@ const Course: React.FC<CourseProps> = ({ idCohort, idUnit }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (formData === 0) {
+      alert("Por favor, selecciona un curso.");
+      return;
+    }
     try {
       await CohortService.httpAssignUpdate(`${idCohort}/course/${formData}`);
+      alert("Curso asignado correctamente.");
     } catch (error) {
       console.error("Error assigning course:", error);
-      alert("Failed to assign course. Please try again.");
+      alert("No se pudo asignar el curso. Por favor, intenta nuevamente.");
     }
+  };
+
+  const assigCourses = () => {
+    fetchCourses();
   };
 
   return (
     <div className={styles.container_course}>
-      <div className={styles.container_table}>
-        <table className={styles.cohortsTable}>
-          <thead>
-            <tr className={styles.table_header}>
-              <th>Cohorte</th>
-              <th>Curso</th>
-            </tr>
-          </thead>
-          <tbody>
-            {cohortsCourses.map((cohort, i) => (
-              <tr key={i} className={styles.table_row}>
-                <td className={styles.table_cell}>{cohort.cohort.title}</td>
-                <td className={styles.table_cell}>{cohort.courses.title}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <form onSubmit={handleSubmit} className={styles.cohortForm}>
-        <div className={styles.formGroup}>
-          <label className={styles.formLabel}>Curso:</label>
-          <select
-            id="idCourse"
-            name="idCourse"
-            value={formData}
-            className={styles.selectInput}
-            onChange={handleChange}
-            required
-          >
-            <option value={0}>Seleccionar Curso</option>
-            {coursesFilter.map((course) => (
-              <option key={course.id} value={course.id}>
-                {course.title}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <button type="submit">Asignar esta cohorte a este Curso</button>
-        </div>
-      </form>
-      <div>
-        {formData > 0 ? (
-          <>
-            <p>Asignar Modulo</p>
-            <Module idCohort={idCohort} idCourse={formData} />
-          </>
+      {isLoad ? (
+        <form onSubmit={handleSubmit} className={styles.cohortForm}>
+          <div className={styles.formGroup}>
+            <label className={styles.formLabel}>Curso:</label>
+            <select
+              id="idCourse"
+              name="idCourse"
+              value={formData}
+              className={styles.selectInput}
+              onChange={handleChange}
+              required
+            >
+              <option value={0}>Seleccionar Curso</option>
+              {coursesFilter.map((course) => (
+                <option key={course.id} value={course.id}>
+                  {course.title}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <button type="submit">Asignar esta cohorte a este Curso</button>
+          </div>
+        </form>
+      ) : (
+        <button onClick={assigCourses}>Assignar Cursos</button>
+      )}
+
+      {/* Mostrar los cursos ya asignados */}
+      <div className={styles.assignedCoursesContainer}>
+        {courseAssing && courseAssing.length > 0 ? (
+          courseAssing.map((course) => (
+            <div key={course.idCourse} className={styles.courseCard}>
+              <h3>{course.title}</h3>
+              <p>{course.titleUnit}</p>
+              <span>{course.enabled ? "Activo" : "Inactivo"}</span>
+              <div>
+                <button>Eliminar</button>
+                <button onClick={()=> selectCourse(course.idCourse)} >Modulos</button>
+              </div>
+            </div>
+          ))
         ) : (
-          <></>
+          <p>No hay cursos asignados a esta cohorte.</p>
         )}
       </div>
     </div>

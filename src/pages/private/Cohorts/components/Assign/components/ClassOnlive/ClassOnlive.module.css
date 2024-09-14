@@ -1,0 +1,66 @@
+/* ClassOnlive.module.css */
+.courseCard {
+    background-color: #f4f4f9;
+    border: 1px solid #ddd;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .courseCard h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .courseCard p {
+    margin: 4px 0;
+    color: #555;
+  }
+  
+  .courseCard button {
+    background-color: #9e2d49;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 8px;
+  }
+  
+  .courseCard button:hover {
+    background-color: #7b1f37;
+  }
+  
+  .formContainer {
+    background-color: #fff;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 24px;
+  }
+  
+  .formContainer input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .formContainer button {
+    background-color: #450c1f;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .formContainer button:hover {
+    background-color: #210110;
+  }
+  

@@ -105,11 +105,11 @@ const NewSuscription: React.FC<NewSubscriptionProps> = ({ onComplete }) => {
             required
           >
             <option value={0}>Seleccionar Nivel</option>
-            {levels.map((level) => (
+            {levels && levels.length > 0 ?   levels.map((level) => (
               <option key={level.id} value={level.id}>
                 {level.title}
               </option>
-            ))}
+            )): <></>}
           </select>
         </div>
         <div className={style.formGroup}>

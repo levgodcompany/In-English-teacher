@@ -16,20 +16,12 @@ const Sidebar = () => {
 
   const listRouter: Routes[] = [
     {
-      route: PrivateRoutes.DASHBOARD,
-      title: "Dashboard",
-    },
-    {
-      route: PrivateRoutes.LEVELS,
+      route: PrivateRoutes.TYPE_LEVEL,
       title: "Niveles",
     },
     {
       route: PrivateRoutes.STUDENTS,
       title: "Estudiantes",
-    },
-    {
-      route: PrivateRoutes.COHORTS,
-      title: "Cohortes",
     },
   ];
 

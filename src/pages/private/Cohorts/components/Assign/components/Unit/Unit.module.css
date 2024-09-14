@@ -1,71 +1,69 @@
 .container_unit {
-  margin-top: 20px;
+  padding: 20px;
 }
 
-.cohortForm {
+.containerAssignedUnits {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.assignedUnits {
+  margin-bottom: 20px;
+}
+
+.unitCard {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  width: 300px;
 }
 
 .formGroup {
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 15px;
 }
 
 .formLabel {
   font-weight: bold;
+  display: block;
   margin-bottom: 5px;
 }
 
 .selectInput {
+  width: 100%;
   padding: 8px;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  border: 1px solid var(--primary-color);
 }
 
-button {
-  padding: 10px;
+.submitButton {
+  padding: 10px 15px;
+  background-color: #4CAF50;
+  color: white;
   border: none;
   border-radius: 4px;
-  background-color: var(--primary-color);
-  color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-/* Contenedor para la tabla */
-.container_table {
-  margin-bottom: 20px;
-  max-width: 100%;
-  max-height: 400px;
-  overflow: auto;
+.submitButton:hover {
+  background-color: #45a049;
 }
 
-/* Tabla de cohorts */
-.cohortsTable {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
+.assignCourse {
+  margin-top: 20px;
 }
 
-.table_header,
-.table_cell {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+.toggleButton {
+  padding: 10px 15px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.table_header {
-  background-color: #f4f4f4;
-  color: #333;
-  font-weight: bold;
-}
-
-.table_row:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.table_row:hover {
-  background-color: #f1f1f1;
+.toggleButton:hover {
+  background-color: #1976D2;
 }

@@ -2,15 +2,14 @@ import { useState } from "react";
 import styles from "./CohortCreate.module.css";
 import { CohortCreate as CohortCreateType } from "../../../types/Cohorts.types";
 import CohortService from "../../services/Cohort.service";
-import { LevelInfoBasic } from "../../../types/Levels.types";
 
 interface CohortCreateProps {
   fetchCohorts: () => void;
-  levels: LevelInfoBasic[];
+  idLevel: number;
   close: ()=> void;
 }
 
-const CohortCreate: React.FC<CohortCreateProps> = ({ fetchCohorts, levels, close }) => {
+const CohortCreate: React.FC<CohortCreateProps> = ({ fetchCohorts, idLevel, close }) => {
   const [formData, setFormData] = useState<CohortCreateType>({
     title: "",
     description: "",
@@ -18,7 +17,7 @@ const CohortCreate: React.FC<CohortCreateProps> = ({ fetchCohorts, levels, close
     endDate: new Date(),
     registrationStartDate: new Date(),
     registrationEndDate: new Date(),
-    idLevel: 0,
+    idLevel: idLevel,
   });
 
   const handleChange = (
@@ -56,26 +55,6 @@ const CohortCreate: React.FC<CohortCreateProps> = ({ fetchCohorts, levels, close
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.cohortForm}>
-        <div className={styles.formGroup}>
-          <label className={styles.formLabel}>Nivel:</label>
-          <select
-            id="idLevel"
-            name="idLevel"
-            value={formData.idLevel}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            className={styles.selectInput}
-            required
-          >
-            <option value={0}>Seleccionar Nivel</option>
-            {levels.map((level) => (
-              <option key={level.id} value={level.id}>
-                {level.title}
-              </option>
-            ))}
-          </select>
-        </div>
         <div className={styles.formGroup}>
           <label className={styles.formLabel}>Titulo:</label>
           <input

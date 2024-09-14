@@ -1,81 +1,87 @@
-/* Contenedor principal */
 .container {
-  padding: 20px;
-  font-family: Arial, sans-serif;
-}
-
-/* Estilo del título */
-.title {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-/* Contenedor para la tabla */
-.container_table {
-  margin-bottom: 20px;
-  max-width: 100%;
-  max-height: 400px;
-  overflow: auto;
-}
-
-/* Tabla de cohorts */
-.cohortsTable {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-
-.table_header,
-.table_cell {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-.table_header {
-  background-color: #f4f4f4;
-  color: #333;
-  font-weight: bold;
-}
-
-.table_row td {
-  padding: 10px;
-  max-width: 150px; /* Limita el ancho máximo a 50px */
-  white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
-  overflow: hidden; /* Oculta el texto que desborda */
-  text-overflow: ellipsis; /* Muestra los "..." cuando el texto es muy largo */
-  max-height: 20px;
-}
-
-.table_row:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.table_row:hover {
-  background-color: #f1f1f1;
-}
-
-/* Contenedor para los botones */
-.container_buttons {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.title {
+  font-size: 2rem;
   margin-bottom: 20px;
 }
 
-/* Botón para crear cohortes */
+.container_buttons {
+  margin-bottom: 20px;
+}
+
 .button_create {
   padding: 10px 20px;
-  font-size: 16px;
+  background-color: #4caf50;
   color: white;
-  background-color: var(--primary-color);
   border: none;
-  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-/* Contenedor para el formulario de creación de cohortes */
+.cardContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.cohortCard {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cohortTitle {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.cohortDescription {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.cohortDates,
+.cohortLevel {
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.cohortActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.cohortActions button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.cohortActions button:nth-child(1) {
+  background-color: #dc3545;
+}
+
+.cohortActions button:nth-child(2) {
+  background-color: #ffc107;
+}
+
+.cohortActions button:nth-child(3) {
+  background-color: #28a745;
+}
+
+.cohortActions button:nth-child(4) {
+  background-color: #17a2b8;
+}
+
 .container_create {
   margin-top: 20px;
 }

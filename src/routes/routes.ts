@@ -7,6 +7,7 @@ export const PublicRoutes = {
 export const PrivateRoutes = {
   PRIVATE: "in-english",
   DASHBOARD: "dashboard",
+  TYPE_LEVEL: 'type-levels',
   LEVELS: "level",
   UNITIES: "unities",
   COURSES: "courses",
@@ -22,6 +23,7 @@ export const PrivateRoutesHttp = {
   MODULES: "modules",
   STUDENTS: "students",
   TEACHERS: "teachers",
+  TYPE_LEVEL: 'type-levels',
   STATUS: "status",
   BENEFITS: "benefits",
   PAYMENT: "payment",

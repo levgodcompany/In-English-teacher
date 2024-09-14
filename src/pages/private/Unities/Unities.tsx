@@ -7,7 +7,11 @@ import MessageConfirm from "../../../components/Messages/MessageConfirm/MessageC
 import { useNavigate, useParams } from "react-router-dom";
 import { PrivateRoutes } from "../../../routes/routes";
 import { useDispatch } from "react-redux";
-import { addPage, updatePage, updatePageAll } from "../../../redux/slices/Navigations.slice";
+import {
+  addPage,
+  updatePage,
+  updatePageAll,
+} from "../../../redux/slices/Navigations.slice";
 import Navigation from "../../../components/Navigation/Navigation";
 
 const Unities = () => {
@@ -44,20 +48,19 @@ const Unities = () => {
       if (titleLevel) {
         prev.titleLevel = titleLevel;
       }
-
       return prev;
     });
   }, [idLevel]);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(
       updatePageAll({
         page: {},
         title: `Unidades`,
-        completTitle: ""
+        completTitle: "",
       })
-    )
-  }, [])
+    );
+  }, []);
 
   const fetchUnities = async () => {
     try {
@@ -88,7 +91,7 @@ const Unities = () => {
         order: 0,
       });
       setIsCreate(false);
-      fetchUnities(); // Refresca la lista de unidades
+      fetchUnities();
     } catch (error) {
       console.error("Error creating unit:", error);
       setError(`${error}`);
@@ -108,7 +111,7 @@ const Unities = () => {
         order: 0,
       });
       setIsEdit(false);
-      fetchUnities(); // Refresca la lista de unidades
+      fetchUnities();
     } catch (error) {
       console.error("Error updating unit:", error);
       setError(`${error}`);
@@ -118,14 +121,13 @@ const Unities = () => {
   const handleDelete = async () => {
     try {
       const app = UnitiesService.crud();
-      app.setUrl("");
       await app.delete(currentUnit.id);
       setIsDelete(false);
       setIsCreate(false);
       setIsEdit(false);
-      fetchUnities(); // Refresca la lista de unidades
+      fetchUnities();
     } catch (error) {
-      console.error("Error updating unit:", error);
+      console.error("Error deleting unit:", error);
       setError(`${error}`);
     }
   };
@@ -232,13 +234,13 @@ const Unities = () => {
     dispatch(
       updatePage({
         prevTitle: `Unidades`,
-        newTitle: `Unidad: ${unit.title}`
+        newTitle: `Unidad: ${unit.title}`,
       })
     );
     dispatch(
       addPage({
-        title: `Cursos`, // Título de la página
-        description: "", // Descripción de la página
+        title: `Cursos`,
+        description: "",
         url,
       })
     );
@@ -265,38 +267,28 @@ const Unities = () => {
       )}
       <div>
         <p>Unidades del Nivel "{titleLevel}"</p>
-        {unities.length > 0 ? (
-          <table className={style.table}>
-            <thead className={style.thead}>
-              <tr>
-                <th>Título</th>
-                <th>Descripción</th>
-                <th>Orden</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody className={style.tbody}>
-              {unities
-                .sort((a, b) => a.order - b.order)
-                .map((unit) => (
-                  <tr key={unit.id}>
-                    <td>{unit.title}</td>
-                    <td>{unit.description}</td>
-                    <td>{unit.order}</td>
-                    <td>
-                      <button onClick={() => handleEditClick(unit)}>
-                        Editar
-                      </button>
-                      <button onClick={() => onDelete(unit)}>Eliminar</button>
-                      <button onClick={() => next(unit)}>Cursos</button>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        ) : (
-          <p>No hay unidades disponibles</p>
-        )}
+        <div className={style.card_container}>
+          {unities.length > 0 ? (
+            unities
+              .sort((a, b) => a.order - b.order)
+              .map((unit) => (
+                <div className={style.card} key={unit.id}>
+                  <h2>{unit.title}</h2>
+                  <p>{unit.description}</p>
+                  <p>Orden: {unit.order}</p>
+                  <div className={style.card_actions}>
+                    <button onClick={() => handleEditClick(unit)}>
+                      Editar
+                    </button>
+                    <button onClick={() => onDelete(unit)}>Eliminar</button>
+                    <button onClick={() => next(unit)}>Cursos</button>
+                  </div>
+                </div>
+              ))
+          ) : (
+            <p>No hay unidades disponibles</p>
+          )}
+        </div>
       </div>
       <div>
         <button onClick={handleCreateClick}>Crear unidad</button>

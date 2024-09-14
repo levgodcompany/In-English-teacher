@@ -1,35 +1,52 @@
 .container_teacher {
-  margin-top: 20px;
+  padding: 20px;
 }
 
-.cohortForm {
+.containerAssignedTeachers {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.assignedTeachers {
+  margin-bottom: 20px;
+}
+
+.teacherCard {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
 
 .formGroup {
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 15px;
 }
 
 .formLabel {
   font-weight: bold;
+  display: block;
   margin-bottom: 5px;
 }
 
 .selectInput {
+  width: 100%;
   padding: 8px;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  border: 1px solid var(--primary-color);
 }
 
-button {
-  padding: 10px;
+.submitButton {
+  padding: 10px 15px;
+  background-color: #4caf50;
+  color: white;
   border: none;
   border-radius: 4px;
-  background-color: var(--primary-color);
-  color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #45a049;
 }

@@ -1,4 +1,3 @@
-/* Contenedor principal */
 .container {
   display: flex;
   flex-direction: column;
@@ -8,94 +7,112 @@
 
 .container_nav {
   width: 100%;
+  margin-bottom: 20px;
 }
 
-/* Estilo de la tabla */
+.container_levels {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
+}
+
+.card {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #555;
+  margin: 5px 0;
+}
+
+.card_actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.button {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.button:hover {
+  transform: scale(1.1);
+}
+
+.container_new_level {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
 }
 
-.thead th {
-  background-color: #9e2d49;
-  color: #feffd5;
-  text-align: left;
-  padding: 10px;
-  font-weight: bold;
-}
-
-.tbody td {
-  padding: 10px;
-  max-width: 150px; /* Limita el ancho máximo a 50px */
-  white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
-  overflow: hidden; /* Oculta el texto que desborda */
-  text-overflow: ellipsis; /* Muestra los "..." cuando el texto es muy largo */
-  max-height: 20px;
-
+.thead {
+  background-color: #333;
+  color: white;
 }
 
 .tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #f2f2f2;
 }
 
-/* Botones dentro de la tabla */
-.button {
-  background-color: var(--primary-color);
-  color: #feffd5;
+.tbody td, .thead th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.tbody tr:hover {
+  background-color: #ddd;
+}
+
+.tbody td {
+  vertical-align: middle;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+button {
+  background-color: #9e2d49;
+  color: white;
   border: none;
-  padding: 8px 12px;
-  margin: 0 5px;
-  border-radius: 4px;
+  border-radius: 5px;
+  padding: 10px 20px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.button:hover {
-  background-color: #9e2d49;
-}
-
-/* Contenedor para niveles */
-.container_levels {
-  width: 100%;
-  max-width: 1200px;
-  margin: 20px 0;
-}
-
-.container_new_level {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #6e6c6c7a;
-}
-
-/* Contenedor para unidades */
-.container_unities {
-  margin-top: 20px;
-  width: 100%;
-}
-
-/* Títulos y descripción */
-.title {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.description {
-  color: #210110;
-  margin-top: 5px;
-}
-
-.order {
-  color: #d3c4a5;
-  font-size: 16px;
-}
-
-/* Mensaje de error */
-.error {
-  color: red;
-  margin-top: 20px;
-  text-align: center;
+button:hover {
+  background-color: #450c1f;
 }

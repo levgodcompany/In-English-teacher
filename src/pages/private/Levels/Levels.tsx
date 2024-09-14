@@ -4,15 +4,14 @@ import { levelDto } from "./types/Levels.types";
 import LevelsService from "./services/Levels.service";
 import MessageError from "../../../components/ConfirCancelReservation/MessageError";
 import style from "./Levels.module.css";
-import Wizard from "./components/Wizard/Wizard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { PrivateRoutes } from "../../../routes/routes";
 import Navigation from "../../../components/Navigation/Navigation";
 import { useDispatch } from "react-redux";
 import {
   addPage,
-  clearNavigation,
   updatePage,
+  updatePageAll,
 } from "../../../redux/slices/Navigations.slice";
 import Exam from "./components/Exam/Exam";
 import imgEdit from "../../../assets/edit-3-svgrepo-com.svg";
@@ -20,31 +19,36 @@ import imgDelete from "../../../assets/delete-2-svgrepo-com.svg";
 import imgExam from "../../../assets/i-exam-multiple-choice-svgrepo-com.svg";
 import imgUnit from "../../../assets/unit-svgrepo-com.svg";
 import EditLevel from "./components/EditLevel/EditLevel";
+import NewLevel from "./components/NewLevel/NewLevel";
 
 const Levels = () => {
   const [levels, setLevels] = useState<levelDto[]>([]);
   const [levelSelect, setLevelSelect] = useState<levelDto | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [newLevel, setNewLevel] = useState<boolean>(false);
-  const [editLevel, setEditLevel] = useState<number | null>(null)
+  const [editLevel, setEditLevel] = useState<number | null>(null);
+  const { idTypeLevel } = useParams<{
+    idTypeLevel: string;
+  }>();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     fetchLevels();
-    dispatch(clearNavigation());
     dispatch(
-      addPage({
-        title: `Niveles`, // Título de la página
-        description: "", // Descripción de la página
-        url: `/${PrivateRoutes.PRIVATE}/${PrivateRoutes.LEVELS}`,
+      updatePageAll({
+        title: `Niveles`,
+        page: {},
+        completTitle: "",
       })
     );
   }, []);
 
   const fetchLevels = async () => {
     try {
-      const result = await LevelsService.crud().findAll();
+      const api = LevelsService.crud();
+      api.setUrl(`/type-levels/${idTypeLevel}`);
+      const result = await api.findAll();
       setLevels(result);
     } catch (error) {
       setError(`${error}`);
@@ -55,7 +59,6 @@ const Levels = () => {
     try {
       await LevelsService.crud().delete(id);
       await fetchLevels();
-      // setLevels(result);
     } catch (error) {
       setError(`${error}`);
     }
@@ -75,8 +78,26 @@ const Levels = () => {
     );
     dispatch(
       addPage({
-        title: `Unidades`, // Título de la página
-        description: "", // Descripción de la página
+        title: `Unidades`,
+        description: "",
+        url,
+      })
+    );
+    navigate(url, { replace: true });
+  };
+
+  const nextCohort = (level: levelDto) => {
+    const url = `/${PrivateRoutes.PRIVATE}/${PrivateRoutes.COHORTS}/${level.id}`;
+    dispatch(
+      updatePage({
+        prevTitle: `Niveles`,
+        newTitle: `Nivel: ${level.title}`,
+      })
+    );
+    dispatch(
+      addPage({
+        title: `Cohorts`,
+        description: "",
         url,
       })
     );
@@ -102,59 +123,48 @@ const Levels = () => {
 
       <div className={style.container_levels}>
         {levels.length > 0 ? (
-          <table className={style.table}>
-            <thead className={style.thead}>
-              <tr>
-                <th>Título</th>
-                <th>Descripción</th>
-                <th>Orden</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody className={style.tbody}>
-              {levels
-                .sort((a, b) => a.order - b.order)
-                .map((level) => (
-                  <tr key={level.id}>
-                    <td>{level.title}</td>
-                    <td>{level.description}</td>
-                    <td>{level.order}</td>
-                    <td>
-                      <img
-                        style={{ width: "15px" }}
-                        onClick={() => fetchLevelsDelete(level.id)}
-                        className={style.button}
-                        src={imgDelete}
-                        alt="Eliminar"
-                      />
-                      <img
-                        style={{ width: "15px" }}
-                        onClick={() => setEditLevel(level.id)}
-                        className={style.button}
-                        src={imgEdit}
-                        alt="Editar"
-                      />
-
-                      <img
-                        style={{ width: "15px" }}
-                        onClick={() => setLevelSelect(level)}
-                        className={style.button}
-                        src={imgExam}
-                        alt="Exams"
-                      />
-
-                      <img
-                        style={{ width: "15px" }}
-                        onClick={() => next(level)}
-                        className={style.button}
-                        src={imgUnit}
-                        alt="Unites"
-                      />
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
+          <div className={style.card_container}>
+            {levels
+              .sort((a, b) => a.order - b.order)
+              .map((level) => (
+                <div key={level.id} className={style.card}>
+                  <h2>{level.title}</h2>
+                  <p>{level.description}</p>
+                  <p>Orden: {level.order}</p>
+                  <div className={style.card_actions}>
+                    <img
+                      style={{ width: "15px" }}
+                      onClick={() => fetchLevelsDelete(level.id)}
+                      className={style.button}
+                      src={imgDelete}
+                      alt="Eliminar"
+                    />
+                    <img
+                      style={{ width: "15px" }}
+                      onClick={() => setEditLevel(level.id)}
+                      className={style.button}
+                      src={imgEdit}
+                      alt="Editar"
+                    />
+                    <img
+                      style={{ width: "15px" }}
+                      onClick={() => setLevelSelect(level)}
+                      className={style.button}
+                      src={imgExam}
+                      alt="Exams"
+                    />
+                    <img
+                      style={{ width: "15px" }}
+                      onClick={() => next(level)}
+                      className={style.button}
+                      src={imgUnit}
+                      alt="Unites"
+                    />
+                    <span onClick={()=> nextCohort(level)} >Cohort</span>
+                  </div>
+                </div>
+              ))}
+          </div>
         ) : (
           <p>No hay niveles disponibles</p>
         )}
@@ -167,7 +177,7 @@ const Levels = () => {
 
       {newLevel && (
         <div className={style.container_new_level}>
-          <Wizard close={handleOnClickNewLevel} />
+          <NewLevel close={handleOnClickNewLevel} idTypeLevel={Number(idTypeLevel)} />
         </div>
       )}
       {levelSelect ? (
@@ -178,9 +188,7 @@ const Levels = () => {
         <></>
       )}
 
-      {
-        editLevel ? <EditLevel idLevel={editLevel} /> : <></>
-      }
+      {editLevel ? <EditLevel idLevel={editLevel} /> : <></>}
     </div>
   );
 };

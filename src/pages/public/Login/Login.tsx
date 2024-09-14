@@ -11,7 +11,7 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState<login>({
-    email: "fernando@gmail.com",
+    email: "mariadoreaveron@gmail.com",
     password: "teacher",
   });
   const [error, setError] = useState<string | null>(null);

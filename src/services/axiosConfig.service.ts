@@ -3,7 +3,7 @@ import store from "../redux/store";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:3000/api/v1/", // Reemplaza esto con la URL base de tu API
-  timeout: 1000, // Tiempo de espera en milisegundos
+  timeout: 10000, // Tiempo de espera en milisegundos
   headers: { "Content-Type": "application/json" },
 });
 // Configurar el interceptor para añadir el token a las solicitudes
