@@ -46,7 +46,9 @@ const Unit: React.FC<UnitProps> = ({ idCohort, unitAssing, selectUnit }) => {
       return;
     }
     try {
-      await CohortService.httpAssignUpdate(`${idCohort}/unit/${formData}`);
+      await CohortService.httpAssignUpdate(
+        `cohort-unit/assign/${idCohort}/unit/${formData}`
+      );
       alert("Unidad asignada correctamente.");
       setFormData(""); // Reiniciar selección tras la asignación
     } catch (error) {
@@ -59,7 +61,11 @@ const Unit: React.FC<UnitProps> = ({ idCohort, unitAssing, selectUnit }) => {
   };
 
   const enabledOnClick = async (idUnit: number, enabled: boolean) => {
-    UnitiesService.enable(idCohort, idUnit, !enabled);
+    await UnitiesService.enable(idCohort, idUnit, !enabled);
+  };
+
+  const handleDelete = async (idCohort: number, idUnit: number) => {
+    await UnitiesService.deleteAssignCohort(idCohort, idUnit);
   };
 
   return (
@@ -78,7 +84,9 @@ const Unit: React.FC<UnitProps> = ({ idCohort, unitAssing, selectUnit }) => {
                 </p>
                 <p>{unit.enabled ? "Activo" : "Inactivo"}</p>
                 <div>
-                  <button>Eliminar</button>
+                  <button onClick={() => handleDelete(idCohort, unit.idUnit)}>
+                    Eliminar
+                  </button>
                   <button
                     onClick={() => enabledOnClick(unit.idUnit, unit.enabled)}
                   >

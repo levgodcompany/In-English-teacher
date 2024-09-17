@@ -2,6 +2,7 @@ export interface ClassOnliveDTO {
   id: number;
   title: string;
   url: string;
+  description: string;
 }
 
 export interface CohortTeacherRelationshipDTO {

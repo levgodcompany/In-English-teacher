@@ -90,6 +90,10 @@ const Module: React.FC<ModuleProps> = ({
               <h3>{course.title}</h3>
               <p>{course.title}</p>
               <span>{course.enabled ? "Activo" : "Inactivo"}</span>
+              <div>
+                <button>Eliminar</button>
+                <button>{course.enabled ? "Desabilitar" : "Activar"}</button>
+              </div>
             </div>
           ))
         ) : (

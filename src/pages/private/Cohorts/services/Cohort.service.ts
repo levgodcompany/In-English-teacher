@@ -14,6 +14,16 @@ class CohortService {
   async httpAssignUpdate(url: string) {
     try {
       // const baseUrl = this.crud().getUrl()
+      await axiosInstance.put(`${PrivateRoutesHttp.COHORTS}/${url}`);
+      
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async httpAssignClassOnlive(url: string) {
+    try {
+      // const baseUrl = this.crud().getUrl()
       await axiosInstance.put(`${PrivateRoutesHttp.COHORTS}/assign/${url}`);
       
     } catch (error) {

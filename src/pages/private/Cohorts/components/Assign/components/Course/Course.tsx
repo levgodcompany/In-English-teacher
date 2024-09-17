@@ -27,7 +27,7 @@ const Course: React.FC<CourseProps> = ({ idCohort, idUnit, courseAssing, selectC
       const filteredCourses = result.filter((c) => c.idUnit === idUnit);
 
       setCoursesFilter(filteredCourses);
-      setIsLoad(false);
+      setIsLoad(true);
     } catch (error) {
       console.error("Error fetching courses:", error);
     }
@@ -45,7 +45,7 @@ const Course: React.FC<CourseProps> = ({ idCohort, idUnit, courseAssing, selectC
       return;
     }
     try {
-      await CohortService.httpAssignUpdate(`${idCohort}/course/${formData}`);
+      await CohortService.httpAssignUpdate(`cohort-course/assign/${idCohort}/course/${formData}`);
       alert("Curso asignado correctamente.");
     } catch (error) {
       console.error("Error assigning course:", error);
@@ -55,6 +55,11 @@ const Course: React.FC<CourseProps> = ({ idCohort, idUnit, courseAssing, selectC
 
   const assigCourses = () => {
     fetchCourses();
+  };
+
+
+  const enabledOnClick = async (idCourse: number, enabled: boolean) => {
+    await CoursesService.enable(idCohort, idCourse, !enabled);
   };
 
   return (
@@ -97,6 +102,7 @@ const Course: React.FC<CourseProps> = ({ idCohort, idUnit, courseAssing, selectC
               <span>{course.enabled ? "Activo" : "Inactivo"}</span>
               <div>
                 <button>Eliminar</button>
+                <button onClick={()=> enabledOnClick(course.idCourse, course.enabled)} >{course.enabled ? "Desabilitar" : "Activar"}</button>
                 <button onClick={()=> selectCourse(course.idCourse)} >Modulos</button>
               </div>
             </div>

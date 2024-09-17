@@ -17,6 +17,14 @@ class UnitiesServices {
     }
   }
 
+  async deleteAssignCohort(idCohort:number, idUnit: number){
+    try {
+      await axiosInstance.delete(`${PrivateRoutesHttp.COHORTS}/cohort-unit/cohort/${idCohort}/unit/${idUnit}`);
+    } catch (error) {
+      
+    }
+  }
+
 }
 
 export default new UnitiesServices();

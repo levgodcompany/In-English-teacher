@@ -16,9 +16,15 @@ interface AssignProps {
 
 const Assign: React.FC<AssignProps> = ({ idCohort, close }) => {
   const [cohort, setCohort] = useState<CohortDTO | null>(null);
-
   const [selectUnit, setSelectUnit] = useState<number | null>(null);
   const [selectCourse, setSelectCourse] = useState<number | null>(null);
+
+  const [showClassOnlive, setShowClassOnlive] = useState(false);
+  const [showUnit, setShowUnit] = useState(false);
+  const [showCourses, setShowCourses] = useState(false);
+  const [showModules, setShowModules] = useState(false);
+  const [showStudents, setShowStudents] = useState(false);
+  const [showTeachers, setShowTeachers] = useState(false);
 
   useEffect(() => {
     fecht();
@@ -55,81 +61,99 @@ const Assign: React.FC<AssignProps> = ({ idCohort, close }) => {
     <div className={styles.container}>
       <div className={styles.containerInfo}>
         <div>
-          <button onClick={()=> close()}>Cerrar</button>
+          <button onClick={() => close()}>Cerrar</button>
         </div>
-
-
-      
-        <div className={styles.section}>
-          <p className={styles.sectionTitle}>Asignar Clase</p>
-          <div className={styles.content}>
-            <ClassOnlive
-              classOnliveAssign={cohort?.classOnlives}
-              idCohort={idCohort}
-            />
-          </div>
-        </div>
-
 
         <div className={styles.section}>
-          <p className={styles.sectionTitle}>Asignar Unidad</p>
-          <div className={styles.content}>
-            <Unit
-              selectUnit={setSelectUnit}
-              unitAssing={cohort?.cohortUnities}
-              idCohort={idCohort}
-            />
-          </div>
-        </div>
-
-        {selectUnit ? (
-          <div className={styles.section}>
-            <p className={styles.sectionTitle}>Asignar Cursos</p>
+          <p className={styles.sectionTitle} onClick={() => setShowClassOnlive(!showClassOnlive)}>
+            Asignar Clase
+          </p>
+          {showClassOnlive && (
             <div className={styles.content}>
-              <Course
-                courseAssing={filterCoursesByIdUnit()}
+              <ClassOnlive
+                classOnliveAssign={cohort?.classOnlives}
                 idCohort={idCohort}
-                idUnit={selectUnit}
-                selectCourse={setSelectCourse}
               />
             </div>
+          )}
+        </div>
+
+        <div className={styles.section}>
+          <p className={styles.sectionTitle} onClick={() => setShowUnit(!showUnit)}>
+            Asignar Unidad
+          </p>
+          {showUnit && (
+            <div className={styles.content}>
+              <Unit
+                selectUnit={setSelectUnit}
+                unitAssing={cohort?.cohortUnities}
+                idCohort={idCohort}
+              />
+            </div>
+          )}
+        </div>
+
+        {selectUnit && (
+          <div className={styles.section}>
+            <p className={styles.sectionTitle} onClick={() => setShowCourses(!showCourses)}>
+              Asignar Cursos
+            </p>
+            {showCourses && (
+              <div className={styles.content}>
+                <Course
+                  courseAssing={filterCoursesByIdUnit()}
+                  idCohort={idCohort}
+                  idUnit={selectUnit}
+                  selectCourse={setSelectCourse}
+                />
+              </div>
+            )}
           </div>
-        ) : (
-          <></>
         )}
 
-        {selectUnit && selectCourse ? (
-          <>
-            <Module
-              idCohort={idCohort}
-              modulesAssig={filterModulesByIdCourse()}
-              idCourse={selectCourse}
-            />
-          </>
-        ) : (
-          <></>
+        {selectUnit && selectCourse && (
+          <div className={styles.section}>
+            <p className={styles.sectionTitle} onClick={() => setShowModules(!showModules)}>
+              Asignar Módulos
+            </p>
+            {showModules && (
+              <div className={styles.content}>
+                <Module
+                  idCohort={idCohort}
+                  modulesAssig={filterModulesByIdCourse()}
+                  idCourse={selectCourse}
+                />
+              </div>
+            )}
+          </div>
         )}
 
         <div className={styles.section}>
-          <p className={styles.sectionTitle}>Asignar Estudiante</p>
-          <div className={styles.content}>
-            <Student
-              studentAssing={cohort?.cohortStudents}
-              idCohort={idCohort}
-            />
-          </div>
+          <p className={styles.sectionTitle} onClick={() => setShowStudents(!showStudents)}>
+            Asignar Estudiante
+          </p>
+          {showStudents && (
+            <div className={styles.content}>
+              <Student
+                studentAssing={cohort?.cohortStudents}
+                idCohort={idCohort}
+              />
+            </div>
+          )}
         </div>
 
-        <div className={styles.containerTeacherStudent}>
-          <div className={styles.section}>
-            {/* <p className={styles.sectionTitle}>Asignar Profesor</p> */}
+        <div className={styles.section}>
+          <p className={styles.sectionTitle} onClick={() => setShowTeachers(!showTeachers)}>
+            Asignar Profesor
+          </p>
+          {showTeachers && (
             <div className={styles.content}>
               <Teacher
                 teacherAssigs={cohort?.cohortTeachers}
                 idCohort={idCohort}
               />
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

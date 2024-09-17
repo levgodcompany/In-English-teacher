@@ -4,7 +4,6 @@ import CohortService from "./services/Cohort.service";
 import styles from "./Cohorts.module.css";
 import CohortCreate from "./components/CohortCreate/CohortCreate";
 import Assign from "./components/Assign/Assign";
-import CohortInfo from "./components/Cohort/Cohort";
 import { useParams } from "react-router-dom";
 import Navigation from "../../../components/Navigation/Navigation";
 
@@ -12,7 +11,6 @@ import Navigation from "../../../components/Navigation/Navigation";
 const Cohorts = () => {
   const [cohorts, setCohorts] = useState<Cohort[]>([]);
   const [isCreate, setIsCreate] = useState<boolean>(false);
-  const [idCohortSelect, setIdCohortSelect] = useState<number | null>(null);
   const [idCohortSelectAssig, setIdCohortSelectAssig] = useState<number | null>(
     null
   );
@@ -93,7 +91,6 @@ const Cohorts = () => {
               <button onClick={() => setIdCohortSelectAssig(cohort.id)}>
                 Asignar
               </button>
-              <button onClick={() => setIdCohortSelect(cohort.id)}>Info</button>
             </div>
           </div>
         ))}
@@ -102,7 +99,6 @@ const Cohorts = () => {
       {idCohortSelectAssig && idCohortSelectAssig > 0 ? (
         <Assign idCohort={idCohortSelectAssig} close={close} />
       ) : null}
-      {idCohortSelect ? <CohortInfo idCohort={idCohortSelect} /> : null}
 
       <div className={styles.container_create}>
         {isCreate ? (

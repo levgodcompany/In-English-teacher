@@ -31,6 +31,7 @@ export const PrivateRoutesHttp = {
   STUDENT_SUSCRIPTION: "student-suscription",
   SUSCRIPTION: "suscription",
   EXAMS_LEVELS: "level-exams",
-  COHORTS: "cohorts"
+  COHORTS: "cohorts",
+  CLASS_ONLIVE: "class-onlives"
 
 };
