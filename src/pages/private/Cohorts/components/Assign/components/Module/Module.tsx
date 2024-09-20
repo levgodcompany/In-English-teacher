@@ -45,7 +45,7 @@ const Module: React.FC<ModuleProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await CohortService.httpAssignUpdate(`${idCohort}/module/${formData}`);
+      await CohortService.httpAssignUpdate(`cohort-module/assign/${idCohort}/module/${formData}`);
     } catch (error) {
       console.error("Error assigning module:", error);
       alert("Failed to assign module. Please try again.");

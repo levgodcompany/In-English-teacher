@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import Navigation from "../../../components/Navigation/Navigation";
 import { useDispatch } from "react-redux";
 import { updatePageAll } from "../../../redux/slices/Navigations.slice";
+import FileUpload from "./components/FileUpload/FileUpload";
 
 const Modules = () => {
   const [modules, setModules] = useState<Module[]>([]);
@@ -36,6 +37,8 @@ const Modules = () => {
     fileURL: "",
     typeFile: "",
   });
+
+  const [isFilePdf, setIsFilePdf] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
@@ -180,6 +183,11 @@ const Modules = () => {
     setCurrentModule((prev) => ({ ...prev, description: value }));
   };
 
+  const fileURLPdf = (url: string)=>{
+    setCurrentModule((prev) => ({ ...prev, fileURL: url, typeFile: "pdf" }));
+
+  }
+
   const renderForm = () => (
     <div className={style.container_new}>
       <p className={style.container_new_title}>
@@ -255,15 +263,20 @@ const Modules = () => {
         <div className={style.formGroup}>
           <label className={style.label} htmlFor="fileURL">
             URL del Archivo
+            <button onClick={()=> setIsFilePdf(!isFilePdf)} >Subit PDF</button>
           </label>
-          <input
-            type="text"
-            id="fileURL"
-            name="fileURL"
-            className={style.form_input}
-            value={currentModule.fileURL || ""}
-            onChange={handleInputChange}
-          />
+          {isFilePdf ? (
+            <FileUpload filePdf={fileURLPdf} />
+          ) : (
+            <input
+              type="text"
+              id="fileURL"
+              name="fileURL"
+              className={style.form_input}
+              value={currentModule.fileURL || ""}
+              onChange={handleInputChange}
+            />
+          )}
         </div>
         <div className={style.formGroup}>
           <label className={style.label} htmlFor="typeFile">
@@ -278,6 +291,7 @@ const Modules = () => {
             onChange={handleInputChange}
           />
         </div>
+
         <button className={style.form_button} type="submit">
           {isEdit ? "Actualizar" : "Crear"}
         </button>
